@@ -1,0 +1,46 @@
+{ "Beach" : {
+  "east"  : "Boat Crash Site",
+  "description" : "You wake up abandoned on the beach shore of a deserted island...you feel exhausted but must find your way out of here. You can move East or West from here.",
+  "west" : "Fishing Hole",
+  "north": "Jungle"
+},
+
+  "Boat Crash Site" : {
+    "west" : "Beach",
+    "item" : [{"name": "Fishing Net", "description": "A ragged fishing net. Still useful to catch fish, even though some holes exist..."},{"name": "Knife", "description": "A rusted Bowie Knife. Still sharp enough to cause problems."},{"name": "Backpack", "description": "An old military issue backpack. This can hold many items!"}],
+    "description" : "The remnants of the wreckage from the boat you were on...some items are thrown about. Where is everyone else? You can move West from here"
+  },
+
+  "Fishing Hole" : {
+    "east": "Beach",
+    "item" : [{"name": "Fish", "description": "A live fish from the ocean! Perhaps a tuna of some kind? This could be useful to feed something..."}, {"name": "Safe Key", "description":"A rusty key that appears to open something. Ingen is etched on the side but faded..."}],
+    "description": "A whirlpool near the coast that has some settled water. You see some fish swimming around in the pool."
+  },
+
+  "Jungle" : {
+    "east" : "Abandoned Research Facility",
+    "west": "Village",
+    "item" : {"name":"paddle", "description": "An old oar that used to help boats paddle along. How did it end up in the jungle? Did someone use it to protect themselves?..."},
+    "description": "You enter a thick, lush jungle full of different plants and animals making a variety of sounds. The humidity beats down upon you, as you journey continues. You can go east from here, however it appears there could be another path.."
+  },
+
+  "Village" : {
+    "east" : "Jungle",
+    "item" : [{"name": "Rope", "description": "A rope that is frayed but still could be used to hold something together"}, {"name": "Wood Planks Pile", "description":"A pile of wood planks that could be used to build something useful!"}],
+    "description" : "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses. They are friendly to you, since you have been deemed worthy by the Magic Totem"
+  },
+
+  "Abandoned Research Facility" : {
+    "west" : "Jungle",
+    "east" : "Mountain Peak",
+    "item" : [{"name": "Locked Safe", "description": "A safe that seems to have been closed for ages...I wonder what could be inside?"}, {"name": "Flare Gun", "description":"A flare gun that could be used to signal for help! However...there is no flare..."}],
+    "description" : "An abandoned research facility that is overgrown with vegetation and run down...It seems this place used to conduct some science experiments a long time ago?"
+  },
+
+  "Mountain Peak" : {
+    "west": "Abandoned Research Facility",
+    "item": {"name": "Flare Round", "description": "A flare round that could be shot out of a flare gun...this could help me escape!"},
+    "description": "The top of the mountain on the island. You can see the ocean and all sides from this point, so can anyone passing by...perhaps a shipping vessel!"
+  }
+
+}
