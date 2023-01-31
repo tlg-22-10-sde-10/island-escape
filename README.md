@@ -1,17 +1,8 @@
-# Survival: Island Escape
+Project Name# Survival: Island Escape
 
+Developers: Henry Melendez, Kiaya Anderson, Shawn Blair
 
-A text-based adventure involving a survivor who wakes up washed on the shore after a horrific boat crash where everyone on board perished except them.
-It is a project in Java that pushes the player to get off the island and survive a variety of events.
-
-
-You are startled awake by the sensation of water crashing on your feet. You look around confused and realize you are no longer in your warm, comfy bed but on a strange island in the middle of nowhere. 
-
-You reach into your pocket to see if you have your cellphone and find a note that reads:
-
-“Hello there. I know you’re wondering where you are. That’s not very important. What is important is how you choose to leave this place. You have two options: search the island for the materials needed to build a boat to help you sail away or search for a safe that will contain a flare gun to signal help. Beware though, each option comes with it’s own challenges. 
-
-P.S. Timing is very important. You are only allotted a certain amount of time to escape or you will be stuck here forever. Happy Escaping!”
-
+Game Summary: Survival: Island Escape is a text adventure game in which a player wakes up on a suspicious island and has to find a way of escape before the timer runs out. The player receives initial instructions on two different methods of escape, including gathering materials to build a boat or obtaining a flare gun to signal for help. The player will encounter unique challenges along the way, such as a riddle and a threat that can potentially change the outcome of the game. If the player does not beat the timer by finding a way off the island, they will be doomed to stay forever.
 
 Diagram is attached within github
+Google Doc: https://docs.google.com/document/d/1BQz6xYDMfWks0JtPVYz62E0ctGHFHmOXWhP8neQ0Qf4/edit
