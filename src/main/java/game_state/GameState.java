@@ -69,7 +69,7 @@ public class GameState {
                 "\n" +
                 "P.S. Timing is very important. You are only allotted a certain amount of time to escape " +
                 "\nbefore you are stuck here forever.\n " + bold +
-                "\nHappy Escaping!”\n" + unBold;
+                "\nHappy Escaping!" + unBold;
 
         char[] array = introductionText.toCharArray();
         for(char text : array){

@@ -44,7 +44,7 @@ public class LocationParser {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            rooms = mapper.readTree(new File("C:\\\\Island-Escape\\\\src\\\\main\\\\resources\\\\game-info.json"));
+            rooms = mapper.readTree(new File("src/main/resources/game-info.json"));
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -57,13 +57,23 @@ public class LocationParser {
         while (true) {
             JsonNode room = rooms.get(currentRoom);
             System.out.println(room.get("description").asText());
+            if(room.has("item")) {
+                for(JsonNode item : room.get("item")){
+                    System.out.println(item.get("name").asText());
+
+                }
+            }
             System.out.print("Which direction would you like to go? (north, south, east, west): ");
+            System.out.println("What would you like to do? go [direction] or pickup [item]");
             String direction = sc.nextLine();
+
             if (!room.has(direction)) {
                 System.out.println("You can't go in that direction.");
                 continue;
             }
-            currentRoom = room.get(direction).asText();
+                currentRoom = room.get(direction).asText();
+
+
         }
     }
 }

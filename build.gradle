@@ -11,7 +11,8 @@ java {
 }
 
 application {
-    mainClass = project.mainClass
+    mainClass = 'Main'
+
 }
 
 //noinspection GroovyAssignabilityCheck
