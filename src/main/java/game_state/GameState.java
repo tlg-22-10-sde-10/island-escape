@@ -55,7 +55,7 @@ public class GameState {
         final String bold = "\033[1m";
         final String unBold = "\033[0m";
         String introductionText =
-                "You are startled awake by the sensation of water crashing on your feet. " +
+                "Welcome to the Survival: Island Escape Game.\nYou are startled awake by the sensation of water crashing on your feet. " +
                 "You look around confused and \nrealize you are no longer in your warm, comfy bed " +
                 "but on a strange island in the middle of nowhere.\n" +
                 "\n" +

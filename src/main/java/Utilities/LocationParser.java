@@ -44,7 +44,7 @@ public class LocationParser {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            rooms = mapper.readTree(new File("C:\\\\Island-Escape\\\\src\\\\main\\\\resources\\\\game-info.json"));
+            rooms = mapper.readTree(new File("src/main/resources/game-info.json"));
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {

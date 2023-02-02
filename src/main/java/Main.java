@@ -8,6 +8,8 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         GameState.gameArt();
+        GameState.gameIntroductionText();
+        System.out.println();
 
         Scanner userInput = new Scanner(System.in);
         boolean continueGame = true;
@@ -16,7 +18,7 @@ public class Main {
             String start = userInput.nextLine().toLowerCase();
             switch (start) {
                 case "yes":
-                    GameState.gameIntroductionText();
+                    LocationParser.Run();
                     break;
                 case "no":
                     System.out.println(GameState.exitMessage());
