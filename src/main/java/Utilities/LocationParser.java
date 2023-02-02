@@ -1,35 +1,28 @@
 package Utilities;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import entities.Item;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class LocationParser {
 
     public static void main(String[] args) throws IOException {
+         jsonRootParser();
 
-        //Reads the file input JSON
-        File file = new File("gameinfo.json");
+    }
 
-//        //read json file data to a string
-//        byte[] gameInfoJSON = Files.readAllBytes(Paths.get("gameinfo.json"));
-//
-//        System.out.println(gameInfoJSON);
+    private static void jsonRootParser() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File("C:\\Island-Escape\\src\\main\\resources\\game-info.json");
+        JsonNode jsonRoot = objectMapper.readTree(file);
 
-        //create object mapper instance
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.readValue(file, Item.class)
-        //Deserialize JSON to object
-
-
-        //  String JSON = objectMapper.readValue(new File("src/test/resources/json_car.json"), Car.class);
+        for(JsonNode node : jsonRoot){
+            String allNodes = node.toString();
+            System.out.println(allNodes);
+        }
 
     }
 }
