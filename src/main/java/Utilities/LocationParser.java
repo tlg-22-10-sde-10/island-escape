@@ -9,32 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-//original code format in case, not utilized at the moment
-//public class LocationParser {
-//
-//    public static void main(String[] args) throws IOException {
-//         jsonRootParser();
-//
-//    }
-//
-////    private static void jsonRootParser() throws IOException {
-////        ObjectMapper objectMapper = new ObjectMapper();
-////        File file = new File("C:\\Island-Escape\\src\\main\\resources\\game-info.json");
-////        JsonNode jsonRoot = objectMapper.readTree(file);
-////
-////        for(JsonNode node : jsonRoot){
-////            String allNodes = node.toString();
-////            System.out.println(allNodes);
-////        }
-////
-////    }
-//
-//
-//
-//}
-
-
-
 
 public class LocationParser {
     private static JsonNode rooms;
@@ -54,15 +28,21 @@ public class LocationParser {
         }
 
         String currentRoom = "Beach";
-        while (true) {
+        boolean gameRun = true;
+
+        while (gameRun) {
             JsonNode room = rooms.get(currentRoom);
+            //JsonNode items = rooms.get(currentRoom).get(currentItems);
+
             System.out.println(room.get("description").asText());
+
             if(room.has("item")) {
                 for(JsonNode item : room.get("item")){
                     System.out.println(item.get("name").asText());
 
                 }
             }
+
             System.out.print("Which direction would you like to go? (north, south, east, west): ");
             System.out.println("What would you like to do? go [direction] or pickup [item]");
             String direction = sc.nextLine();

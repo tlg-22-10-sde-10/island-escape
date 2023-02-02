@@ -12,7 +12,10 @@ java {
 
 application {
     mainClass = 'Main'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9506739c5875870d326affedccbfbf4eb7414017
 }
 
 //noinspection GroovyAssignabilityCheck

@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class GameState {
@@ -54,7 +55,7 @@ public class GameState {
         final String bold = "\033[1m";
         final String unBold = "\033[0m";
         String introductionText =
-                "You are startled awake by the sensation of water crashing on your feet. " +
+                "Welcome to the Survival: Island Escape Game.\nYou are startled awake by the sensation of water crashing on your feet. " +
                 "You look around confused and \nrealize you are no longer in your warm, comfy bed " +
                 "but on a strange island in the middle of nowhere.\n" +
                 "\n" +
@@ -74,9 +75,13 @@ public class GameState {
         char[] array = introductionText.toCharArray();
         for(char text : array){
             System.out.print(text);
-            TimeUnit.MILLISECONDS.sleep(50);
+            TimeUnit.MILLISECONDS.sleep(0);
         }
 
+    }
+
+    public static String startNewGameMessage() {
+        return "Would you like to start the game? 'Yes' or 'No': ";
     }
 
     public static String playAgainMessage() {
@@ -85,6 +90,10 @@ public class GameState {
 
     public static String quitMessage() {
         return "The island will see you again. Goodbye!";
+    }
+
+    public static String exitMessage() {
+        return "Maybe next time. Goodbye!";
     }
 
 }
