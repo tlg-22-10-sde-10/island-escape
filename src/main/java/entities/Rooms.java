@@ -30,7 +30,7 @@ public class Rooms {
         ObjectMapper mapper = new ObjectMapper();
         try {
             File file = new File("C:\\Island-Escape\\src\\main\\resources\\game-info.json");
-            return (Map<String, Room>) mapper.readTree(file);
+            return mapper.readValue(new FileReader("game-info.json"),
                     mapper.getTypeFactory().constructMapType(Map.class, String.class, Room.class));
         } catch (Exception e) {
            // e.getMessage();
