@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class GameState {
@@ -79,12 +80,20 @@ public class GameState {
 
     }
 
+    public static String startNewGameMessage() {
+        return "Would you like to start the game? 'Yes' or 'No': ";
+    }
+
     public static String playAgainMessage() {
         return "Would you like to play again? Enter 'Yes' or 'No':";
     }
 
     public static String quitMessage() {
         return "The island will see you again. Goodbye!";
+    }
+
+    public static String exitMessage() {
+        return "Maybe next time. Goodbye!";
     }
 
 }
