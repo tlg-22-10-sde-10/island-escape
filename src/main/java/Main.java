@@ -1,4 +1,5 @@
 
+import Utilities.LocationParser;
 import game_state.GameState;
 import entities.MagicTotem;
 
@@ -8,5 +9,6 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         GameState.gameArt();
         GameState.gameIntroductionText();
+        LocationParser.Run();
     }
 }
