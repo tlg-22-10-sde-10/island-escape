@@ -60,6 +60,7 @@ public class LocationParser {
 
             String action = sc.nextLine();
 
+
             if(action.equals("quit")){
                 System.out.println("Are you sure you want to quit? Yes or No?");
                 action = sc.nextLine().toLowerCase();
@@ -70,6 +71,12 @@ public class LocationParser {
                     gameRun = false;
                     break;
                 }
+            }
+            if(!action.contains("go")){
+                System.out.println("Invalid Input");
+                System.out.println();
+                System.out.println();
+                continue;
             }
 
             if(action.equals("help")){
