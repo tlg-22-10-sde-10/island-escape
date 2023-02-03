@@ -8,7 +8,7 @@
   "Boat Crash Site" : {
     "west" : "Beach",
     "item" : [{"name": "Fishing Net", "description": "A ragged fishing net. Still useful to catch fish, even though some holes exist..."},{"name": "Knife", "description": "A rusted Bowie Knife. Still sharp enough to cause problems."},{"name": "Backpack", "description": "An old military issue backpack. This can hold many items!"}],
-    "description" : "The remnants of the wreckage from a boat are washed ashore...some items are thrown about. Where is everyone else? You can move West from here"
+    "description" : "The remnants of the wreckage from a boat has washed ashore...some items are thrown about. Where is everyone else? You can move West from here."
   },
 
   "Fishing Hole" : {
@@ -28,7 +28,7 @@
   "Village" : {
     "east" : "Jungle",
     "item" : [{"name": "Rope", "description": "A rope that is frayed but still could be used to hold something together"}, {"name": "Wood Planks Pile", "description":"A pile of wood planks that could be used to build something useful!"}],
-    "description" : "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses. They are friendly to you, since you have been deemed worthy by the Magic Totem"
+    "description" : "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses. They are friendly to you, since you have been deemed worthy by the Magic Totem."
   },
 
   "Abandoned Research Facility" : {

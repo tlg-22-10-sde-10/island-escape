@@ -19,7 +19,9 @@ public class Main {
             String start = userInput.nextLine().toLowerCase();
             switch (start) {
                 case "yes":
+                    System.out.println("-----------------------------------------------------------------------------------------------------------");
                     GameState.gameIntroductionText();
+                    System.out.println("-----------------------------------------------------------------------------------------------------------");
                     LocationParser.Run();
                     break;
                 case "no":
@@ -27,7 +29,7 @@ public class Main {
                     continueGame = false;
                     break;
                 default:
-                    System.out.println("Invalid input. Please type 'Yes' or 'No'.");
+                    System.out.println("I don't recognize your response. Please type 'Yes' or 'No'.");
             }
         }
 

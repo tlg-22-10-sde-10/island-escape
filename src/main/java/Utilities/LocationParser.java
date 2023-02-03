@@ -19,6 +19,10 @@ public class LocationParser {
     private static JsonNode rooms;
     private static List<String> pickedUpItems;
     private static String[] hands = new String[1];
+    public static final String underline = "\u001b[4m";
+    public static final String bold = "\033[1m";
+    public static final String unBold = "\033[0m";
+    public static final String RED = "\u001b[31;1m";
 
     public static void Run() {
         Scanner sc = new Scanner(System.in);
@@ -46,23 +50,22 @@ public class LocationParser {
 
             System.out.println(room.get("description").asText());
             if(room.has("item")){
-                System.out.println("There are the following items here: ");
+                System.out.println(GameState.CYAN + bold + "[Items at this location:]" + unBold + GameState.RESET);
                 for(JsonNode item : room.get("item")){
                     System.out.println(item.get("name").asText());
                 }
             }
             else {
-                System.out.println("There are no items at this location");
+                System.out.println(GameState.CYAN + bold + "[There are no items at this location]" + unBold + GameState.RESET);
             }
 
-            System.out.print("Which direction would you like to go?:\n");
-            System.out.println("Type 'help' to see a list of commands > ");
+            System.out.print("\nWhich direction would you like to go? [Hint: You can type 'help' at any time to view a list of commands] ");
 
             String action = sc.nextLine();
 
 
             if(action.equals("quit")){
-                System.out.println("Are you sure you want to quit? Yes or No?");
+                System.out.println(RED + "\nAre you sure you want to quit? Yes or No?" + GameState.RESET);
                 action = sc.nextLine().toLowerCase();
                 if(action.equals("no")){
                     continue;
@@ -74,15 +77,15 @@ public class LocationParser {
             }
 
             if(action.equals("help")){
-                System.out.println("\nHere are the available commands: ");
-                System.out.println("-Type 'go' (direction) Example: go north");
-                System.out.println("-Type 'pickup' (item) Example: pickup flare gun");
-                System.out.println("-Type 'quit' (To quit game) \n");
+                System.out.println(underline + "\nHere are the available commands: " + GameState.RESET);
+                System.out.println("-Type" + GameState.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameState.RESET);
+                System.out.println("-Type" + GameState.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameState.RESET);
+                System.out.println("-Type" + GameState.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" +GameState.RESET);
                 continue;
             }
 
             if(!action.contains("go")){
-                System.out.println("Invalid Input");
+                System.out.println("That's not a complete response. Please try again.");
                 System.out.println();
                 System.out.println();
                 continue;
@@ -92,7 +95,7 @@ public class LocationParser {
             String direction = word[1];
 
             if (!room.has(direction)) {
-                System.out.println("You can't go in that direction.");
+                System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameState.RESET);
                 continue;
             }
             currentRoom = room.get(direction).asText();
