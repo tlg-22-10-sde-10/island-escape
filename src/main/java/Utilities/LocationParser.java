@@ -45,17 +45,23 @@ public class LocationParser {
             JsonNode room = rooms.get(currentRoom);
 
             System.out.println(room.get("description").asText());
+            if(room.has("item")){
+                System.out.println("There are the following items here: ");
+                for(JsonNode item : room.get("item")){
+                    System.out.println(item.get("name").asText());
+                }
+            }
+            else {
+                System.out.println("no items here");
+            }
 
             System.out.print("Which direction would you like to go? (north, south, east, west):");
             System.out.println("What action would you like to do? go [direction] or pickup [item] > ");
 
             String action = sc.nextLine();
-            if(!action.contains("go") || !action.contains("pickup")){
-                System.out.println("invalid input please use go [direction] or pickup [item].");
-                System.out.println();
-                System.out.println();
-                LocationParser.Run();
-            }
+
+
+
             if(action.equals("quit")){
                 System.out.println("Are you sure you want to quit? Yes or No?");
                 action = sc.nextLine().toLowerCase();
@@ -67,6 +73,7 @@ public class LocationParser {
                     break;
                 }
             }
+
             String[] word = action.split(" ");
             String direction = word[1];
 
