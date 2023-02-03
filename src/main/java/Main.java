@@ -8,16 +8,16 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         GameState.gameArt();
-        GameState.gameIntroductionText();
         System.out.println();
 
         Scanner userInput = new Scanner(System.in);
         boolean continueGame = true;
         while (continueGame){
-            System.out.print("Would you like to play the 'Survival: Island Escape' game? 'Yes' or 'No': ");
+            System.out.print("Welcome to Survival: Island Escape. Start Game? 'Yes' or 'No': ");
             String start = userInput.nextLine().toLowerCase();
             switch (start) {
                 case "yes":
+                    GameState.gameIntroductionText();
                     LocationParser.Run();
                     break;
                 case "no":

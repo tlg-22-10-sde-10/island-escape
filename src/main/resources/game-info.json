@@ -1,6 +1,6 @@
 { "Beach" : {
   "east"  : "Boat Crash Site",
-  "description" : "You wake up abandoned on the beach shore of a deserted island...you feel exhausted but must find your way out of here. You can move East or West from here.",
+  "description" : "The beach is your starting point...you feel exhausted but must find your way out of here. You can move East or West from here.",
   "west" : "Fishing Hole",
   "north": "Jungle"
 },
@@ -8,7 +8,7 @@
   "Boat Crash Site" : {
     "west" : "Beach",
     "item" : [{"name": "Fishing Net", "description": "A ragged fishing net. Still useful to catch fish, even though some holes exist..."},{"name": "Knife", "description": "A rusted Bowie Knife. Still sharp enough to cause problems."},{"name": "Backpack", "description": "An old military issue backpack. This can hold many items!"}],
-    "description" : "The remnants of the wreckage from the boat you were on...some items are thrown about. Where is everyone else? You can move West from here"
+    "description" : "The remnants of the wreckage from a boat are washed ashore...some items are thrown about. Where is everyone else? You can move West from here"
   },
 
   "Fishing Hole" : {
