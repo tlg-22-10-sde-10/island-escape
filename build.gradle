@@ -12,6 +12,7 @@ java {
 
 application {
     mainClass = 'Main'
+
 }
 
 //noinspection GroovyAssignabilityCheck
