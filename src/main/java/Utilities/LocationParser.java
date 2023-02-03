@@ -1,4 +1,5 @@
 package Utilities;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+//Class that parses the JSON and starts the game
 public class LocationParser {
     private static JsonNode rooms;
     private static List<String> pickedUpItems;
@@ -45,13 +46,12 @@ public class LocationParser {
             JsonNode room = rooms.get(currentRoom);
 
             System.out.println(room.get("description").asText());
-            if(room.has("item")){
+            if (room.has("item")) {
                 System.out.println("There are the following items here: ");
-                for(JsonNode item : room.get("item")){
+                for (JsonNode item : room.get("item")) {
                     System.out.println(item.get("name").asText());
                 }
-            }
-            else {
+            } else {
                 System.out.println("There are no items at this location");
             }
 
@@ -60,20 +60,27 @@ public class LocationParser {
 
             String action = sc.nextLine();
 
+            if (action.contains("look") && room.has("item")) {
+                for (JsonNode item : room.get("item")) {
+                    if (item.get("name").asText().equals(action.substring(5))) {
+                        System.out.println(item.get("description").asText());
+                    }
+                }
+            }
 
-            if(action.equals("quit")){
+            if (action.equals("quit")) {
                 System.out.println("Are you sure you want to quit? Yes or No?");
                 action = sc.nextLine().toLowerCase();
-                if(action.equals("no")){
+                if (action.equals("no")) {
                     continue;
-                } else{
+                } else {
                     System.out.println(GameState.quitMessage());
                     gameRun = false;
                     break;
                 }
             }
 
-            if(action.equals("help")){
+            if (action.equals("help")) {
                 System.out.println("\nHere are the available commands: ");
                 System.out.println("-Type 'go' (direction) Example: go north");
                 System.out.println("-Type 'pickup' (item) Example: pickup flare gun");
@@ -81,7 +88,7 @@ public class LocationParser {
                 continue;
             }
 
-            if(!action.contains("go")){
+            if (!action.contains("go")) {
                 System.out.println("Invalid Input");
                 System.out.println();
                 System.out.println();
@@ -99,7 +106,4 @@ public class LocationParser {
 
         }
     }
-
-
-
 }
