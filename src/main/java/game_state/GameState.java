@@ -22,6 +22,7 @@ public class GameState {
 
     public static final String CYAN = "\u001B[36m";
     public static final String RESET = "\u001B[0m";
+    public static final String MAGENTA = "\u001b[35m";
 
     public static void gameArt(){
         BufferedImage bufferedImage = new BufferedImage(
@@ -54,39 +55,26 @@ public class GameState {
     public static void gameIntroductionText() throws InterruptedException {
         final String bold = "\033[1m";
         final String unBold = "\033[0m";
-
-
-        String introductionText =
-                "-----------------------------------------------------------------------------------------------------------" +
-                "\nYou are startled awake by the sensation of water crashing on your feet. " +
+        final String introductionText = "You are startled awake by the sensation of water crashing on your feet. " +
                 "You look around confused and \nrealize you are no longer in your warm, comfy bed " +
                 "but on a strange island in the middle of nowhere.\n" +
                 "\n" +
                 "You reach into your pocket to see if you have your cell phone to call for help and find a note that reads:\n" +
-                "\n" +
+                "\n" + MAGENTA +
                 "“Hello there. I know you’re wondering where you are. That’s not very important. " +
                 "\nWhat is important is how you choose to leave this place. You have two options:\n" +
-                "\n1) Search the island for the materials needed to build a boat to help you sail away " + bold + "\n-OR-" + unBold +
+                "\n1) Search the island for the materials needed to build a boat to help you sail away\n-OR-" +
                 "\n2) Search for a safe that will contain a flare gun to signal help.\n " +
                 "\nBeware though, each option comes with its own challenges.\n" +
                 "\n" + "P.S. Timing is very important. You are only allotted a certain amount of time to escape " +
                 "\nbefore you are stuck here forever.\n " + bold +
-                "\nHappy Escaping!" + unBold +
-                "\n-----------------------------------------------------------------------------------------------------------\n";
+                "\nHappy Escaping!\n" + unBold + RESET;
 
         char[] array = introductionText.toCharArray();
-        for(char text : array){
+        for (char text : array) {
             System.out.print(text);
-            TimeUnit.MILLISECONDS.sleep(0);
+            TimeUnit.MILLISECONDS.sleep(60);
         }
-    }
-
-    public static String startNewGameMessage() {
-        return "Would you like to start the game? 'Yes' or 'No': ";
-    }
-
-    public static String playAgainMessage() {
-        return "Would you like to play again? Enter 'Yes' or 'No':";
     }
 
     public static String quitMessage() {

@@ -1,14 +1,14 @@
 { "Beach" : {
-  "north": "Jungle",
   "east"  : "Boat Crash Site",
-  "description" : "The beach is your starting point...you feel exhausted but must find your way out of here. You can move East, West, or North from here.",
-  "west" : "Fishing Hole"
+  "description" : "You wake up abandoned on the beach shore of a deserted island...you feel exhausted but must find your way out of here. You can move East or West from here.",
+  "west" : "Fishing Hole",
+  "north": "Jungle"
 },
 
   "Boat Crash Site" : {
     "west" : "Beach",
     "item" : [{"name": "Fishing Net", "description": "A ragged fishing net. Still useful to catch fish, even though some holes exist..."},{"name": "Knife", "description": "A rusted Bowie Knife. Still sharp enough to cause problems."},{"name": "Backpack", "description": "An old military issue backpack. This can hold many items!"}],
-    "description" : "The remnants of the wreckage from a boat are washed ashore...some items are thrown about. Where is everyone else? You can move West from here"
+    "description" : "The remnants of the wreckage from a boat has washed ashore...some items are thrown about. Where is everyone else? You can move West from here."
   },
 
   "Fishing Hole" : {
@@ -20,7 +20,6 @@
   "Jungle" : {
     "east" : "Abandoned Research Facility",
     "west": "Village",
-    "south" : "Beach",
     "item" : [{"name":"paddle", "description": "An old oar that used to help boats paddle along. How did it end up in the jungle? Did someone use it to protect themselves?..."}],
     "description": "You enter a thick, lush jungle full of different plants and animals making a variety of sounds. The humidity beats down upon you, as you journey continues. You can go east from here, however it appears there could be another path.."
   },
@@ -28,7 +27,7 @@
   "Village" : {
     "east" : "Jungle",
     "item" : [{"name": "Rope", "description": "A rope that is frayed but still could be used to hold something together"}, {"name": "Wood Planks Pile", "description":"A pile of wood planks that could be used to build something useful!"}],
-    "description" : "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses. They are friendly to you, since you have been deemed worthy by the Magic Totem"
+    "description" : "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses. They are friendly to you, since you have been deemed worthy by the Magic Totem."
   },
 
   "Abandoned Research Facility" : {
