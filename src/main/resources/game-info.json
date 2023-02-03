@@ -1,5 +1,5 @@
 { "Beach" : {
-  "north" : "Jungle",
+  "north": "Jungle",
   "east"  : "Boat Crash Site",
   "description" : "The beach is your starting point...you feel exhausted but must find your way out of here. You can move East, West, or North from here.",
   "west" : "Fishing Hole"
@@ -21,7 +21,7 @@
     "east" : "Abandoned Research Facility",
     "west": "Village",
     "south" : "Beach",
-    "item" : {"name":"paddle", "description": "An old oar that used to help boats paddle along. How did it end up in the jungle? Did someone use it to protect themselves?..."},
+    "item" : [{"name":"paddle", "description": "An old oar that used to help boats paddle along. How did it end up in the jungle? Did someone use it to protect themselves?..."}],
     "description": "You enter a thick, lush jungle full of different plants and animals making a variety of sounds. The humidity beats down upon you, as you journey continues. You can go east from here, however it appears there could be another path.."
   },
 
@@ -40,7 +40,7 @@
 
   "Mountain Peak" : {
     "west": "Abandoned Research Facility",
-    "item": {"name": "Flare Round", "description": "A flare round that could be shot out of a flare gun...this could help me escape!"},
+    "item": [{"name": "Flare Round", "description": "A flare round that could be shot out of a flare gun...this could help me escape!"}],
     "description": "The top of the mountain on the island. You can see the ocean and all sides from this point, so can anyone passing by...perhaps a shipping vessel!"
   }
 
