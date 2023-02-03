@@ -1,8 +1,10 @@
 package Utilities;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import entities.BackPack;
 import entities.Item;
 import game_state.GameState;
 
@@ -15,6 +17,8 @@ import java.util.Scanner;
 
 public class LocationParser {
     private static JsonNode rooms;
+    private static List<String> pickedUpItems;
+    private static String[] hands = new String[1];
 
     public static void Run() {
         Scanner sc = new Scanner(System.in);
@@ -42,14 +46,16 @@ public class LocationParser {
 
             System.out.println(room.get("description").asText());
 
-            if(room.has("item")) {
-                System.out.println(room.get("description").asText());
-            }
-
             System.out.print("Which direction would you like to go? (north, south, east, west):");
             System.out.println("What action would you like to do? go [direction] or pickup [item] > ");
 
             String action = sc.nextLine();
+            if(!action.contains("go") || !action.contains("pickup")){
+                System.out.println("invalid input please use go [direction] or pickup [item].");
+                System.out.println();
+                System.out.println();
+                LocationParser.Run();
+            }
             if(action.equals("quit")){
                 System.out.println("Are you sure you want to quit? Yes or No?");
                 action = sc.nextLine().toLowerCase();
@@ -72,4 +78,7 @@ public class LocationParser {
 
         }
     }
+
+
+
 }
