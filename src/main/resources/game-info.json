@@ -20,6 +20,7 @@
   "Jungle" : {
     "east" : "Abandoned Research Facility",
     "west": "Village",
+    "south" : "Beach",
     "item" : {"name":"paddle", "description": "An old oar that used to help boats paddle along. How did it end up in the jungle? Did someone use it to protect themselves?..."},
     "description": "You enter a thick, lush jungle full of different plants and animals making a variety of sounds. The humidity beats down upon you, as you journey continues. You can go east from here, however it appears there could be another path.."
   },
