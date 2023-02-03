@@ -1,4 +1,5 @@
 package Utilities;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+//Class that parses the JSON and starts the game
 public class LocationParser {
     private static JsonNode rooms;
     private static List<String> pickedUpItems;
@@ -55,6 +56,7 @@ public class LocationParser {
             JsonNode room = rooms.get(currentRoom);
 
             System.out.println(room.get("description").asText());
+
             if(room.has("item")){
                 System.out.println(GameState.CYAN + bold + "[Items at this location:]" + unBold + GameState.RESET);
                 for(JsonNode item : room.get("item")){
@@ -69,23 +71,34 @@ public class LocationParser {
 
             String action = sc.nextLine();
 
+
+            if (action.contains("look") && room.has("item")) {
+                for (JsonNode item : room.get("item")) {
+                    if (item.get("name").asText().equals(action.substring(5))) {
+                        System.out.println(item.get("description").asText());
+                    }
+                }
+            }
+
+
             if(action.startsWith("pickup")){
                 String[] item = action.split(" ");
                 pickUp(item[1]);
             }
 
-
             if(action.equals("quit")){
                 System.out.println(RED + "\nAre you sure you want to quit? Yes or No?" + GameState.RESET);
                 action = sc.nextLine().toLowerCase();
-                if(action.equals("no")){
+                if (action.equals("no")) {
                     continue;
-                } else{
+                } else {
                     System.out.println(GameState.quitMessage());
                     gameRun = false;
                     break;
                 }
             }
+
+
 
             if(action.equals("help")){
                 System.out.println(underline + "\nHere are the available commands: " + GameState.RESET);
@@ -142,7 +155,4 @@ public class LocationParser {
         }
         mapper.writeValue(new File("src/main/resources/game-info.json"), root);
     }
-
-
-
 }
