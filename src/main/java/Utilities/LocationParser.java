@@ -52,15 +52,13 @@ public class LocationParser {
                 }
             }
             else {
-                System.out.println("no items here");
+                System.out.println("There are no items at this location");
             }
 
-            System.out.print("Which direction would you like to go? (north, south, east, west):");
-            System.out.println("What action would you like to do? go [direction] or pickup [item] > ");
+            System.out.print("Which direction would you like to go?:\n");
+            System.out.println("Type 'help' to see a list of commands > ");
 
             String action = sc.nextLine();
-
-
 
 
             if(action.equals("quit")){
@@ -78,6 +76,14 @@ public class LocationParser {
                 System.out.println("Invalid Input");
                 System.out.println();
                 System.out.println();
+                continue;
+            }
+
+            if(action.equals("help")){
+                System.out.println("\nHere are the available commands: ");
+                System.out.println("-Type 'go' (direction) Example: go north");
+                System.out.println("-Type 'pickup' (item) Example: pickup flare gun");
+                System.out.println("-Type 'quit' (To quit game) \n");
                 continue;
             }
 
