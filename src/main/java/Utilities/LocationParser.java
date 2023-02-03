@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import entities.BackPack;
 import entities.Item;
 import game_state.GameState;
@@ -19,12 +21,16 @@ public class LocationParser {
     private static JsonNode rooms;
     private static List<String> pickedUpItems;
     private static String[] hands = new String[1];
+
     public static final String underline = "\u001b[4m";
     public static final String bold = "\033[1m";
     public static final String unBold = "\033[0m";
     public static final String RED = "\u001b[31;1m";
 
-    public static void Run() {
+    private static String currentRoom = "Beach";
+
+
+    public static void Run() throws IOException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
 
@@ -38,7 +44,7 @@ public class LocationParser {
             e.printStackTrace();
         }
 
-        String currentRoom = "Beach";
+        currentRoom = "Beach";
         String currentItem = "item";
         String quitGame = "quit";
         boolean gameRun = true;
@@ -62,6 +68,11 @@ public class LocationParser {
             System.out.print("\nWhich direction would you like to go? [Hint: You can type 'help' at any time to view a list of commands] ");
 
             String action = sc.nextLine();
+
+            if(action.startsWith("pickup")){
+                String[] item = action.split(" ");
+                pickUp(item[1]);
+            }
 
 
             if(action.equals("quit")){
@@ -91,8 +102,11 @@ public class LocationParser {
                 continue;
             }
 
+
             String[] word = action.split(" ");
             String direction = word[1];
+
+
 
             if (!room.has(direction)) {
                 System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameState.RESET);
@@ -100,7 +114,33 @@ public class LocationParser {
             }
             currentRoom = room.get(direction).asText();
 
+
+
+
         }
+    }
+
+    private static void pickUp(String itemName) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(new File("src/main/resources/game-info.json"));
+
+        JsonNode room = root.get(currentRoom);
+        ArrayNode items = (ArrayNode) room.get("item");
+
+        int itemIndex = -1;
+
+        for(int i = 0; i < items.size(); i++){
+            JsonNode item = items.get(i);
+            if(item.get("name").asText().equals(itemName)){
+                itemIndex = i;
+                break;
+            }
+        }
+        if(itemIndex != -1){
+            items.remove(itemIndex);
+        }
+        mapper.writeValue(new File("src/main/resources/game-info.json"), root);
     }
 
 
