@@ -54,8 +54,11 @@ public class GameState {
     public static void gameIntroductionText() throws InterruptedException {
         final String bold = "\033[1m";
         final String unBold = "\033[0m";
+
+
         String introductionText =
-                "Welcome to the Survival: Island Escape Game.\nYou are startled awake by the sensation of water crashing on your feet. " +
+                "-----------------------------------------------------------------------------------------------------------" +
+                "\nYou are startled awake by the sensation of water crashing on your feet. " +
                 "You look around confused and \nrealize you are no longer in your warm, comfy bed " +
                 "but on a strange island in the middle of nowhere.\n" +
                 "\n" +
@@ -63,21 +66,19 @@ public class GameState {
                 "\n" +
                 "“Hello there. I know you’re wondering where you are. That’s not very important. " +
                 "\nWhat is important is how you choose to leave this place. You have two options:\n" +
-                "\n1) Search the island for the materials needed to build a boat to help you sail away " +
-                bold + "\n-OR-" + unBold +
+                "\n1) Search the island for the materials needed to build a boat to help you sail away " + bold + "\n-OR-" + unBold +
                 "\n2) Search for a safe that will contain a flare gun to signal help.\n " +
                 "\nBeware though, each option comes with its own challenges.\n" +
-                "\n" +
-                "P.S. Timing is very important. You are only allotted a certain amount of time to escape " +
+                "\n" + "P.S. Timing is very important. You are only allotted a certain amount of time to escape " +
                 "\nbefore you are stuck here forever.\n " + bold +
-                "\nHappy Escaping!" + unBold;
+                "\nHappy Escaping!”\n" + unBold +
+                "-----------------------------------------------------------------------------------------------------------\n";
 
         char[] array = introductionText.toCharArray();
         for(char text : array){
             System.out.print(text);
             TimeUnit.MILLISECONDS.sleep(0);
         }
-
     }
 
     public static String startNewGameMessage() {
