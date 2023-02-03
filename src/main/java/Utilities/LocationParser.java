@@ -72,18 +72,19 @@ public class LocationParser {
                     break;
                 }
             }
-            if(!action.contains("go")){
-                System.out.println("Invalid Input");
-                System.out.println();
-                System.out.println();
-                continue;
-            }
 
             if(action.equals("help")){
                 System.out.println("\nHere are the available commands: ");
                 System.out.println("-Type 'go' (direction) Example: go north");
                 System.out.println("-Type 'pickup' (item) Example: pickup flare gun");
                 System.out.println("-Type 'quit' (To quit game) \n");
+                continue;
+            }
+
+            if(!action.contains("go")){
+                System.out.println("Invalid Input");
+                System.out.println();
+                System.out.println();
                 continue;
             }
 
