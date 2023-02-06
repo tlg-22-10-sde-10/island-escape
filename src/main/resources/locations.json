@@ -1,11 +1,13 @@
-{
-  "Beach": {
+[
+   {
+    "name": "Beach",
     "north": "Jungle",
     "east": "Boat Crash Site",
     "description": "The beach is your starting point...you feel exhausted but must find your way out of here. You can move East, West, or North from here.",
     "west": "Fishing Hole"
   },
-  "Boat Crash Site": {
+  {
+    "name": "Boat Crash Site",
     "west": "Beach",
     "item": [
       {
@@ -23,7 +25,8 @@
     ],
     "description": "The remnants of the wreckage from a boat are washed ashore...some items are thrown about. Where is everyone else? You can move West from here"
   },
-  "Fishing Hole": {
+   {
+    "name":"Fishing Hole",
     "east": "Beach",
     "item": [
       {
@@ -37,7 +40,8 @@
     ],
     "description": "A whirlpool near the coast that has some settled water. You see some fish swimming around in the pool."
   },
-  "Jungle": {
+  {
+    "name": "Jungle",
     "east": "Abandoned Research Facility",
     "west": "Village",
     "south": "Beach",
@@ -49,7 +53,8 @@
     ],
     "description": "You enter a thick, lush jungle full of different plants and animals making a variety of sounds. The humidity beats down upon you, as you journey continues. You can go east from here, however it appears there could be another path.."
   },
-  "Village": {
+  {
+    "name": "Village",
     "east": "Jungle",
     "item": [
       {
@@ -63,7 +68,8 @@
     ],
     "description": "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses. They are friendly to you, since you have been deemed worthy by the Magic Totem"
   },
-  "Abandoned Research Facility": {
+  {
+    "name": "Abandoned Research Facility",
     "west": "Jungle",
     "east": "Mountain Peak",
     "item": [
@@ -78,7 +84,8 @@
     ],
     "description": "An abandoned research facility that is overgrown with vegetation and run down...It seems this place used to conduct some science experiments a long time ago?"
   },
-  "Mountain Peak": {
+  {
+    "name": "Mountain Peak",
     "west": "Abandoned Research Facility",
     "item": [
       {
@@ -88,4 +95,4 @@
     ],
     "description": "The top of the mountain on the island. You can see the ocean and all sides from this point, so can anyone passing by...perhaps a shipping vessel!"
   }
-}
+]
