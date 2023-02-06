@@ -48,7 +48,7 @@ public class LocationParser {
 
         //original way to read the information and move through the JSON
         try {
-            FileHandler.CreateGameEnviroment();
+            Utilities.FileHandler.CreateGameEnviroment();
             rooms = mapper.readTree(new File(ALT_FILE));
         } catch (JsonParseException e) {
             e.printStackTrace();
