@@ -1,4 +1,4 @@
-package entities;
+package com.islandescape.entities;
 
 import java.util.ArrayList;
 import java.util.List;
