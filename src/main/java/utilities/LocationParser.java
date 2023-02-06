@@ -37,6 +37,7 @@ public class LocationParser {
     public static void Run() throws IOException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
+
         try (InputStream input = LocationParser.class.getClassLoader().getResourceAsStream("locations.json")) {
             List<Location> locations = mapper.readValue(input, new TypeReference<List<Location>>() {
             });
@@ -44,11 +45,13 @@ public class LocationParser {
                     .stream()
                     .collect(Collectors.toMap(Location::getName, Function.identity()));
             System.out.println(locations);
+
+
         }
 
         //original way to read the information and move through the JSON
         try {
-            Utilities.FileHandler.CreateGameEnviroment();
+            utilities.FileHandler.CreateGameEnviroment();
             rooms = mapper.readTree(new File(ALT_FILE));
         } catch (JsonParseException e) {
             e.printStackTrace();
@@ -168,5 +171,7 @@ public class LocationParser {
     //public void look
     //public void go
     //master method w/switch case
+
+
 
 }
