@@ -37,14 +37,27 @@ public class LocationParser {
     public static void Run() throws IOException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
+//commenting out original stream
+//        try (InputStream input = LocationParser.class.getClassLoader().getResourceAsStream("locations.json")) {
+//            List<Location> locations = mapper.readValue(input, new TypeReference<List<Location>>() {
+//            });
+//            Map<String, Location> locationMap = locations
+//                    .stream()
+//                    .collect(Collectors.toMap(Location::getName, Function.identity()));
+//            //System.out.println(locations);
+//        }
+
+        Map<String, Location> locationMap;
         try (InputStream input = LocationParser.class.getClassLoader().getResourceAsStream("locations.json")) {
             List<Location> locations = mapper.readValue(input, new TypeReference<List<Location>>() {
             });
-            Map<String, Location> locationMap = locations
+            locationMap = locations
                     .stream()
                     .collect(Collectors.toMap(Location::getName, Function.identity()));
-            System.out.println(locations);
         }
+        Map<String, Location> map = locationMap;
+        System.out.println(map.keySet());
+
 
         //original way to read the information and move through the JSON
         try {
