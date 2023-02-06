@@ -56,20 +56,10 @@ public class LocationParser {
                     .collect(Collectors.toMap(Location::getName, Function.identity()));
         }
         Map<String, Location> map = locationMap;
-        System.out.println(map.keySet());
 
 
         //original way to read the information and move through the JSON
-        try {
-            FileHandler.CreateGameEnviroment();
-            rooms = mapper.readTree(new File(ALT_FILE));
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         currentRoom = "Beach";
         String currentItem = "item";
@@ -79,14 +69,15 @@ public class LocationParser {
         List<Item> items = new ArrayList<>();
 
         while (gameRun) {
-            JsonNode room = rooms.get(currentRoom);
+            Location room =  map.get(currentRoom);
 
-            System.out.println(room.get("description").asText());
+            //System.out.println(room.get("description").asText());
+            System.out.println(room.getDescription());
 
-            if (room.has("item")) {
+            if (room.getItems() != null) {
                 System.out.println(GameInteractions.CYAN + bold + "[Items at this location:]" + unBold + GameInteractions.RESET);
-                for (JsonNode item : room.get("item")) {
-                    System.out.println(item.get("name").asText());
+                for (Item item : room.getItems()) {
+                    System.out.println(item.getName());
                 }
             } else {
                 System.out.println(GameInteractions.CYAN + bold + "[There are no items at this location]" + unBold + GameInteractions.RESET);
@@ -97,10 +88,10 @@ public class LocationParser {
             String action = sc.nextLine();
 
 
-            if (action.contains("look") && room.has("item")) {
-                for (JsonNode item : room.get("item")) {
-                    if (item.get("name").asText().toLowerCase().equals(action.substring(5))) {
-                        System.out.println(item.get("description").asText());
+            if (action.contains("look") && room.getItems() != null) {
+                for (Item item : room.getItems()) {
+                    if (item.getName().toLowerCase().equals(action.substring(5))) {
+                        System.out.println(item.getDescription());
                     }
                 }
             }
@@ -108,7 +99,7 @@ public class LocationParser {
 
             if (action.startsWith("pickup")) {
                 String[] item = action.split(" ");
-                pickUp(item[1]);
+                pickUp(item[1], room);
             }
 
             if (action.equals("quit")) {
@@ -143,36 +134,24 @@ public class LocationParser {
             String direction = word[1];
 
 
-            if (!room.has(direction)) {
+            if (getCurrentRoom(direction,room)== null) {
                 System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameInteractions.RESET);
                 continue;
             }
-            currentRoom = room.get(direction).asText();
+            currentRoom = getCurrentRoom(direction,room);
 
         }
     }
 
-    private static void pickUp(String itemName) throws IOException {
+    private static void pickUp(String itemName, Location location) throws IOException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(new File(ALT_FILE));
-
-        JsonNode room = root.get(currentRoom);
-        ArrayNode items = (ArrayNode) room.get("item");
-
-        int itemIndex = -1;
-
-        for (int i = 0; i < items.size(); i++) {
-            JsonNode item = items.get(i);
-            if (item.get("name").asText().equals(itemName)) {
-                itemIndex = i;
-                break;
-            }
+        if(location.getItems().contains(itemName)){
+            location.getItems().remove(itemName);
         }
-        if (itemIndex != -1) {
-            items.remove(itemIndex);
+        else {
+            System.out.println("No item found");
         }
-        mapper.writeValue(new File(ALT_FILE),rooms);
+
     }
 
     //
@@ -181,5 +160,26 @@ public class LocationParser {
     //public void look
     //public void go
     //master method w/switch case
+
+    private static String getCurrentRoom(String direction, Location location){
+        String result = "";
+        switch (direction){
+            case "west":
+                result = location.getWest();
+                break;
+            case "east":
+                result = location.getEast();
+                break;
+            case "south":
+                result = location.getSouth();
+                break;
+            case "north":
+                result = location.getNorth();
+                break;
+        }
+
+
+        return result;
+    }
 
 }
