@@ -1,21 +1,24 @@
-package Utilities;
+package utilities;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import entities.BackPack;
 import entities.Item;
+import entities.Location;
 import game_state.GameState;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 //Class that parses the JSON and starts the game
 public class LocationParser {
@@ -34,9 +37,18 @@ public class LocationParser {
     public static void Run() throws IOException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
+        try (InputStream input = LocationParser.class.getClassLoader().getResourceAsStream("locations.json")) {
+            List<Location> locations = mapper.readValue(input, new TypeReference<List<Location>>() {
+            });
+            Map<String, Location> locationMap = locations
+                    .stream()
+                    .collect(Collectors.toMap(Location::getName, Function.identity()));
+            System.out.println(locations);
+        }
 
+        //original way to read the information and move through the JSON
         try {
-            FileHandler.CreateGameEnviroment();
+            Utilities.FileHandler.CreateGameEnviroment();
             rooms = mapper.readTree(new File(ALT_FILE));
         } catch (JsonParseException e) {
             e.printStackTrace();
@@ -58,13 +70,12 @@ public class LocationParser {
 
             System.out.println(room.get("description").asText());
 
-            if(room.has("item")){
+            if (room.has("item")) {
                 System.out.println(GameState.CYAN + bold + "[Items at this location:]" + unBold + GameState.RESET);
-                for(JsonNode item : room.get("item")){
+                for (JsonNode item : room.get("item")) {
                     System.out.println(item.get("name").asText());
                 }
-            }
-            else {
+            } else {
                 System.out.println(GameState.CYAN + bold + "[There are no items at this location]" + unBold + GameState.RESET);
             }
 
@@ -75,19 +86,19 @@ public class LocationParser {
 
             if (action.contains("look") && room.has("item")) {
                 for (JsonNode item : room.get("item")) {
-                    if (item.get("name").asText().equals(action.substring(5))) {
+                    if (item.get("name").asText().toLowerCase().equals(action.substring(5))) {
                         System.out.println(item.get("description").asText());
                     }
                 }
             }
 
 
-            if(action.startsWith("pickup")){
+            if (action.startsWith("pickup")) {
                 String[] item = action.split(" ");
                 pickUp(item[1]);
             }
 
-            if(action.equals("quit")){
+            if (action.equals("quit")) {
                 System.out.println(RED + "\nAre you sure you want to quit? Yes or No?" + GameState.RESET);
                 action = sc.nextLine().toLowerCase();
                 if (action.equals("no")) {
@@ -99,17 +110,15 @@ public class LocationParser {
                 }
             }
 
-
-
-            if(action.equals("help")){
+            if (action.equals("help")) {
                 System.out.println(underline + "\nHere are the available commands: " + GameState.RESET);
                 System.out.println("-Type" + GameState.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameState.RESET);
                 System.out.println("-Type" + GameState.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameState.RESET);
-                System.out.println("-Type" + GameState.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" +GameState.RESET);
+                System.out.println("-Type" + GameState.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" + GameState.RESET);
                 continue;
             }
 
-            if(!action.contains("go")){
+            if (!action.contains("go")) {
                 System.out.println("That's not a complete response. Please try again.");
                 System.out.println();
                 System.out.println();
@@ -121,15 +130,11 @@ public class LocationParser {
             String direction = word[1];
 
 
-
             if (!room.has(direction)) {
                 System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameState.RESET);
                 continue;
             }
             currentRoom = room.get(direction).asText();
-
-
-
 
         }
     }
@@ -144,16 +149,24 @@ public class LocationParser {
 
         int itemIndex = -1;
 
-        for(int i = 0; i < items.size(); i++){
+        for (int i = 0; i < items.size(); i++) {
             JsonNode item = items.get(i);
-            if(item.get("name").asText().equals(itemName)){
+            if (item.get("name").asText().equals(itemName)) {
                 itemIndex = i;
                 break;
             }
         }
-        if(itemIndex != -1){
+        if (itemIndex != -1) {
             items.remove(itemIndex);
         }
         mapper.writeValue(new File(ALT_FILE),rooms);
     }
+
+    //
+    //public void help
+    //public void quit
+    //public void look
+    //public void go
+    //master method w/switch case
+
 }

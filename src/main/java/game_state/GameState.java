@@ -73,7 +73,7 @@ public class GameState {
         char[] array = introductionText.toCharArray();
         for (char text : array) {
             System.out.print(text);
-            TimeUnit.MILLISECONDS.sleep(60);
+            TimeUnit.MILLISECONDS.sleep(0);
         }
     }
 
