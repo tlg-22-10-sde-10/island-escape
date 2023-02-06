@@ -3,6 +3,7 @@ plugins {
     id 'application'
 }
 
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(project.javaVersion)
@@ -14,6 +15,11 @@ application {
     mainClass = 'Main'
 
 }
+
+
+
+
+
 
 //noinspection GroovyAssignabilityCheck
 run {
