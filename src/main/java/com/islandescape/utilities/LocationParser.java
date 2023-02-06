@@ -1,4 +1,4 @@
-package utilities;
+package com.islandescape.utilities;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import entities.Item;
-import entities.Location;
-import game_state.GameState;
+import com.islandescape.entities.Item;
+import com.islandescape.entities.Location;
+import com.islandescape.controllers.GameInteractions;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class LocationParser {
 
         //original way to read the information and move through the JSON
         try {
-            Utilities.FileHandler.CreateGameEnviroment();
+            FileHandler.CreateGameEnviroment();
             rooms = mapper.readTree(new File(ALT_FILE));
         } catch (JsonParseException e) {
             e.printStackTrace();
@@ -71,12 +71,12 @@ public class LocationParser {
             System.out.println(room.get("description").asText());
 
             if (room.has("item")) {
-                System.out.println(GameState.CYAN + bold + "[Items at this location:]" + unBold + GameState.RESET);
+                System.out.println(GameInteractions.CYAN + bold + "[Items at this location:]" + unBold + GameInteractions.RESET);
                 for (JsonNode item : room.get("item")) {
                     System.out.println(item.get("name").asText());
                 }
             } else {
-                System.out.println(GameState.CYAN + bold + "[There are no items at this location]" + unBold + GameState.RESET);
+                System.out.println(GameInteractions.CYAN + bold + "[There are no items at this location]" + unBold + GameInteractions.RESET);
             }
 
             System.out.print("\nWhich direction would you like to go? [Hint: You can type 'help' at any time to view a list of commands] ");
@@ -99,22 +99,22 @@ public class LocationParser {
             }
 
             if (action.equals("quit")) {
-                System.out.println(RED + "\nAre you sure you want to quit? Yes or No?" + GameState.RESET);
+                System.out.println(RED + "\nAre you sure you want to quit? Yes or No?" + GameInteractions.RESET);
                 action = sc.nextLine().toLowerCase();
                 if (action.equals("no")) {
                     continue;
                 } else {
-                    System.out.println(GameState.quitMessage());
+                    System.out.println(GameInteractions.quitMessage());
                     gameRun = false;
                     break;
                 }
             }
 
             if (action.equals("help")) {
-                System.out.println(underline + "\nHere are the available commands: " + GameState.RESET);
-                System.out.println("-Type" + GameState.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameState.RESET);
-                System.out.println("-Type" + GameState.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameState.RESET);
-                System.out.println("-Type" + GameState.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" + GameState.RESET);
+                System.out.println(underline + "\nHere are the available commands: " + GameInteractions.RESET);
+                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameInteractions.RESET);
+                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameInteractions.RESET);
+                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" + GameInteractions.RESET);
                 continue;
             }
 
@@ -131,7 +131,7 @@ public class LocationParser {
 
 
             if (!room.has(direction)) {
-                System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameState.RESET);
+                System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameInteractions.RESET);
                 continue;
             }
             currentRoom = room.get(direction).asText();
