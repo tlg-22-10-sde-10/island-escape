@@ -1,14 +1,14 @@
-import java.util.Scanner;
-import utilities.LocationParser;
-import game_state.GameState;
-
+package com.islandescape.client;
 
 import java.io.IOException;
+import java.util.Scanner;
+import com.islandescape.utilities.LocationParser;
+import com.islandescape.controllers.GameInteractions;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
 
-        GameState.gameArt();
+        GameInteractions.gameArt();
         System.out.println();
 
         Scanner userInput = new Scanner(System.in);
@@ -19,16 +19,16 @@ public class Main {
             switch (start) {
                 case "yes":
                     System.out.println("-----------------------------------------------------------------------------------------------------------");
-                    GameState.gameIntroductionText();
+                    GameInteractions.gameIntroductionText();
                     System.out.println("-----------------------------------------------------------------------------------------------------------");
                     LocationParser.Run();
                     break;
                 case "no":
-                    System.out.println(GameState.exitMessage());
+                    System.out.println(GameInteractions.exitMessage());
                     continueGame = false;
                     break;
                 default:
-                    System.out.println("I don't recognize your response. Please type 'Yes' or 'No'.");
+                    System.out.println("Invalid input. Please type 'Yes' or 'No'.");
             }
         }
 

@@ -1,4 +1,4 @@
-package Utilities;
+package com.islandescape.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;

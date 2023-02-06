@@ -1,4 +1,4 @@
-package utilities;
+package com.islandescape.utilities;
 import java.util.concurrent.TimeUnit;
 
  public class CountdownTimer {

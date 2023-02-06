@@ -1,4 +1,4 @@
-package entities;
+package com.islandescape.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,14 +14,6 @@ public class Location {
     private String description;
     @JsonProperty("item")
     private List<Item> items;
-
-
-
-
-
-
-
-
 
     public String getName() {
         return name;
