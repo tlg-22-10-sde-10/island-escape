@@ -25,7 +25,7 @@ public class LocationParser {
     private static JsonNode rooms;
     private static List<String> pickedUpItems;
     private static String[] hands = new String[1];
-
+    private static final String ALT_FILE = "src/main/resources/game-info1.json";
     public static final String underline = "\u001b[4m";
     public static final String bold = "\033[1m";
     public static final String unBold = "\033[0m";
@@ -48,7 +48,8 @@ public class LocationParser {
 
         //original way to read the information and move through the JSON
         try {
-            rooms = mapper.readTree(new File("src/main/resources/game-info.json"));
+            FileHandler.CreateGameEnviroment();
+            rooms = mapper.readTree(new File(ALT_FILE));
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -141,7 +142,7 @@ public class LocationParser {
     private static void pickUp(String itemName) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(new File("src/main/resources/game-info.json"));
+        JsonNode root = mapper.readTree(new File(ALT_FILE));
 
         JsonNode room = root.get(currentRoom);
         ArrayNode items = (ArrayNode) room.get("item");
@@ -158,7 +159,7 @@ public class LocationParser {
         if (itemIndex != -1) {
             items.remove(itemIndex);
         }
-        mapper.writeValue(new File("src/main/resources/game-info.json"), root);
+        mapper.writeValue(new File(ALT_FILE),rooms);
     }
 
     //
