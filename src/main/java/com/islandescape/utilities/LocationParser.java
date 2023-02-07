@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.islandescape.entities.Item;
 import com.islandescape.entities.Location;
 import com.islandescape.controllers.GameInteractions;
+import com.islandescape.entities.MagicTotem;
 
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class LocationParser {
     private static List<Item> items = new ArrayList<>();
 
 
-    public static void Run() throws IOException {
+    public static void Run() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
 
@@ -84,10 +85,10 @@ public class LocationParser {
             if (action.contains("pickup")) {
                 String[] item = action.split(" ");
 
-                pickUp(room,item[1]);
+                pickUp(room, item[1]);
             }
 
-            if(action.toLowerCase().equals("show backpack")){
+            if (action.toLowerCase().equals("show backpack")) {
                 showBackPack();
 
             }
@@ -124,6 +125,16 @@ public class LocationParser {
             if (getCurrentRoom(direction, room) == null) {
                 System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameInteractions.RESET);
             }
+
+            if (currentRoom.equals("Jungle") && direction.equals("west")) {
+                System.out.println("Behold! I am the protector of the village...named the Sacred Totem");
+                if (!MagicTotem.riddle()) {
+                    currentRoom = "Jungle";
+                    continue;
+                } else {
+                    currentRoom = getCurrentRoom(direction, room);
+                }
+            }
             currentRoom = getCurrentRoom(direction, room);
         }
     }
@@ -133,21 +144,20 @@ public class LocationParser {
         Optional<Item> itemToPickUp = room.getItems().stream()
                 .filter(item -> item.getName().toLowerCase().equals(itemName.toLowerCase()))
                 .findFirst();
-        if(itemToPickUp.isPresent()){
+        if (itemToPickUp.isPresent()) {
             Item item = itemToPickUp.get();
             items.add(item);
             room.getItems().remove(item);
             System.out.println("You Have pick up " + item.getName());
 
 
-        }
-        else {
+        } else {
             System.out.println("Item not found");
         }
 
     }
 
-    private static void showBackPack(){
+    private static void showBackPack() {
 
         items.stream().forEach(item -> System.out.println(item.getName()));
 
