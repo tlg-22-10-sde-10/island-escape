@@ -83,11 +83,13 @@ public class LocationParser {
 
             if (action.contains("pickup")) {
                 String[] item = action.split(" ");
+
                 pickUp(room,item[1]);
             }
 
             if(action.toLowerCase().equals("show backpack")){
                 showBackPack();
+
             }
 
             if (action.equals("quit")) {
