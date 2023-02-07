@@ -82,9 +82,9 @@ public class LocationParser {
             }
 
 
-            if (action.startsWith("pickup")) {
+            if (action.contains("pickup")) {
                 String[] item = action.split(" ");
-                pickUp(item[1], room);
+                pickUp(locationMap,currentRoom,item[1]);
             }
 
             if (action.equals("quit")) {
@@ -124,12 +124,14 @@ public class LocationParser {
     }
 
 
-    private static void pickUp(String itemName, Location location) throws IOException {
+    private static void pickUp(Map<String, Location> locationMap, String locationName, String itemName) {
+        Location location = locationMap.get(locationName);
+        if (location != null){
+            List<Item> items = location.getItems();
+            if(items.contains(itemName)){
+                items.remove(itemName);
+            }
 
-        if (location.getItems().contains(itemName)) {
-            location.getItems().remove(itemName);
-        } else {
-            System.out.println("No item found");
         }
     }
 
