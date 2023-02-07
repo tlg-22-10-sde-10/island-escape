@@ -137,6 +137,7 @@ public class LocationParser {
             room.getItems().remove(item);
             System.out.println("You Have pick up " + item.getName());
 
+
         }
         else {
             System.out.println("Item not found");
