@@ -2,6 +2,7 @@ package com.islandescape.client;
 
 import java.io.IOException;
 import java.util.Scanner;
+
 import com.islandescape.utilities.LocationParser;
 import com.islandescape.controllers.GameInteractions;
 
@@ -13,7 +14,7 @@ public class Main {
 
         Scanner userInput = new Scanner(System.in);
         boolean continueGame = true;
-        while (continueGame){
+        while (continueGame) {
             System.out.print("Welcome to Survival: Island Escape. Start Game? 'Yes' or 'No': ");
             String start = userInput.nextLine().toLowerCase();
             switch (start) {
@@ -22,6 +23,7 @@ public class Main {
                     GameInteractions.gameIntroductionText();
                     System.out.println("-----------------------------------------------------------------------------------------------------------");
                     LocationParser.Run();
+                    continueGame = false;
                     break;
                 case "no":
                     System.out.println(GameInteractions.exitMessage());

@@ -73,7 +73,7 @@ public class GameInteractions {
         char[] array = introductionText.toCharArray();
         for (char text : array) {
             System.out.print(text);
-            TimeUnit.MILLISECONDS.sleep(30);
+            TimeUnit.MILLISECONDS.sleep(0);
         }
     }
 
