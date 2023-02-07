@@ -67,7 +67,7 @@ public class GameInteractions {
                 "\n2) Search for a safe that will contain a flare gun to signal help.\n " +
                 "\nBeware though, each option comes with its own challenges.\n" +
                 "\n" + "P.S. Timing is very important. You are only allotted a certain amount of time to escape " +
-                "\nbefore you are stuck here forever.\n " + bold +
+                "\nbefore a volcano erupts and destroys the island.\n " + bold +
                 "\nHappy Escaping!\n" + unBold + RESET;
 
         char[] array = introductionText.toCharArray();

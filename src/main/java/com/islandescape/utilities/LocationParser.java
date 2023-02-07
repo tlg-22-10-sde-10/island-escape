@@ -3,6 +3,7 @@ package com.islandescape.utilities;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.islandescape.controllers.WinConditions;
 import com.islandescape.entities.Item;
 import com.islandescape.entities.Location;
 import com.islandescape.controllers.GameInteractions;
@@ -50,8 +51,9 @@ public class LocationParser {
 
         while (gameRun) {
             room = map.get(currentRoom);
+            WinConditions.playerCanBuildABoat(items);
 
-//            System.out.println("Current Location: " + room.getName());
+            System.out.println("Current Location: " + room.getName());
             System.out.println(room.getDescription());
             //room.getItems().stream().forEach(x -> System.out.println(x.getName()));
 
@@ -148,9 +150,7 @@ public class LocationParser {
             Item item = itemToPickUp.get();
             items.add(item);
             room.getItems().remove(item);
-            System.out.println("You Have pick up " + item.getName());
-
-
+            System.out.println("You have picked up the following item: " + item.getName());
         } else {
             System.out.println("Item not found");
         }
@@ -158,9 +158,7 @@ public class LocationParser {
     }
 
     private static void showBackPack() {
-
         items.stream().forEach(item -> System.out.println(item.getName()));
-
     }
 
 

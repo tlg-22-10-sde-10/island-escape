@@ -11,7 +11,7 @@
     "west": "Beach",
     "item": [
       {
-        "name": "Fishing Net",
+        "name": "Fishing-Net",
         "description": "A ragged fishing net. Still useful to catch fish, even though some holes exist..."
       },
       {
@@ -34,7 +34,7 @@
         "description": "A live fish from the ocean! Perhaps a tuna of some kind? This could be useful to feed something..."
       },
       {
-        "name": "Safe Key",
+        "name": "Safe-Key",
         "description": "A rusty key that appears to open something. Ingen is etched on the side but faded..."
       }
     ],
@@ -62,7 +62,7 @@
         "description": "A rope that is frayed but still could be used to hold something together"
       },
       {
-        "name": "Wood Planks Pile",
+        "name": "Wood-Planks-Pile",
         "description": "A pile of wood planks that could be used to build something useful!"
       }
     ],
