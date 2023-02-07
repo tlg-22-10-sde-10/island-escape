@@ -7,12 +7,10 @@ import com.islandescape.entities.Item;
 import com.islandescape.entities.Location;
 import com.islandescape.controllers.GameInteractions;
 
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -30,8 +28,9 @@ public class LocationParser {
     private static String currentRoom = "Beach";
     private static Location room;
     private static boolean gameRun = true;
+
     String[] itemList = new String[1];
-    List<Item> items = new ArrayList<>();
+    private static List<Item> items = new ArrayList<>();
 
 
     public static void Run() throws IOException {
@@ -84,7 +83,13 @@ public class LocationParser {
 
             if (action.contains("pickup")) {
                 String[] item = action.split(" ");
-                pickUp(locationMap,currentRoom,item[1]);
+
+                pickUp(room,item[1]);
+            }
+
+            if(action.toLowerCase().equals("show backpack")){
+                showBackPack();
+
             }
 
             if (action.equals("quit")) {
@@ -124,16 +129,30 @@ public class LocationParser {
     }
 
 
-    private static void pickUp(Map<String, Location> locationMap, String locationName, String itemName) {
-        Location location = locationMap.get(locationName);
-        if (location != null){
-            List<Item> items = location.getItems();
-            if(items.contains(itemName)){
-                items.remove(itemName);
-            }
+    private static void pickUp(Location room, String itemName) {
+        Optional<Item> itemToPickUp = room.getItems().stream()
+                .filter(item -> item.getName().toLowerCase().equals(itemName.toLowerCase()))
+                .findFirst();
+        if(itemToPickUp.isPresent()){
+            Item item = itemToPickUp.get();
+            items.add(item);
+            room.getItems().remove(item);
+            System.out.println("You Have pick up " + item.getName());
+
 
         }
+        else {
+            System.out.println("Item not found");
+        }
+
     }
+
+    private static void showBackPack(){
+
+        items.stream().forEach(item -> System.out.println(item.getName()));
+
+    }
+
 
 //    private static void help(String action) {
 //        if (action.contains("help")) {
