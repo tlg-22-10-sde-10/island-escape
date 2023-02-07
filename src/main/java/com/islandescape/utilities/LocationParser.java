@@ -83,11 +83,13 @@ public class LocationParser {
 
             if (action.contains("pickup")) {
                 String[] item = action.split(" ");
+
                 pickUp(room,item[1]);
             }
 
             if(action.toLowerCase().equals("show backpack")){
                 showBackPack();
+
             }
 
             if (action.equals("quit")) {
@@ -126,7 +128,6 @@ public class LocationParser {
         }
     }
 
-
     private static void pickUp(Location room, String itemName) {
         Optional<Item> itemToPickUp = room.getItems().stream()
                 .filter(item -> item.getName().toLowerCase().equals(itemName.toLowerCase()))
@@ -136,6 +137,7 @@ public class LocationParser {
             items.add(item);
             room.getItems().remove(item);
             System.out.println("You Have pick up " + item.getName());
+
 
         }
         else {
