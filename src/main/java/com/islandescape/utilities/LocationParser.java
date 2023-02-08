@@ -38,7 +38,7 @@ public class LocationParser {
     public static void Run() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
-        CountdownTimer.startTimer(15);
+        CountdownTimer.startTimer(1);
 
         try (InputStream input = LocationParser.class.getClassLoader().getResourceAsStream("locations.json")) {
             List<Location> locations = mapper.readValue(input, new TypeReference<List<Location>>() {
@@ -64,7 +64,9 @@ public class LocationParser {
 
             if (CountdownTimer.countdownFinished()){
                 gameRun = false;
-                System.out.println("You have died");
+                System.out.println(AsciiArt.MAGENTA+"The ground begins to shake and the Volcano on the island begins to violently erupt."+AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA+"There is no escaping this...Your soul now belongs to the island forever!"+AsciiArt.RESET);
+                System.out.println(AsciiArt.volcano);
                 break;
             }
 
