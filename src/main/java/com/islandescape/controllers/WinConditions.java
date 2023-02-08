@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class WinConditions {
 
-    public static void playerCanBuildABoat(List<Item> itemList) {
+    public static boolean playerCanBuildABoat(List<Item> itemList) {
         Scanner input = new Scanner(System.in);
         String[] boat = {"paddle", "wood-planks-pile", "rope"};
         List<String> items = new ArrayList<>();
@@ -24,11 +24,14 @@ public class WinConditions {
 
             if(response.equalsIgnoreCase("yes")) {
                 System.out.println("The Villagers have sympathy for you and assist you with building the boat.\n" +
-                        "You win!!!! Safe travels home!!!");
+                        "You win!!!! Safe travels home!!!\n");
+                return true;
             } else {
                 System.out.println("You have decided to not build a boat at this time. Continue to watch the time. You need to escape!");
+                return false;
             }
         }
+        return false;
     }
 }
 

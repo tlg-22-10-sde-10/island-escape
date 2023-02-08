@@ -51,7 +51,11 @@ public class LocationParser {
 
         while (gameRun) {
             room = map.get(currentRoom);
-            WinConditions.playerCanBuildABoat(items);
+
+            if(WinConditions.playerCanBuildABoat(items)){
+                gameRun = false;
+                break;
+            };
 
             System.out.println("Current Location: " + room.getName());
             System.out.println(room.getDescription());
