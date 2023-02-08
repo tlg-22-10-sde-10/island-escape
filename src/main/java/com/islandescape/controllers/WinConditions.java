@@ -1,6 +1,7 @@
 package com.islandescape.controllers;
 
 import com.islandescape.entities.Item;
+import com.islandescape.entities.Location;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,5 +34,37 @@ public class WinConditions {
         }
         return false;
     }
+
+    public static boolean flareWin(List<Item> items, Location location){
+        Scanner input = new Scanner(System.in);
+        boolean hasFlare = false;
+
+        for(Item item : items){
+            if(item.getName().equals("flare-gun")){
+                hasFlare = true;
+                break;
+            }
+        }
+
+        if(hasFlare && location.getName().equals("Mountain Peak")){
+            System.out.println("You are at the top of mountain");
+            System.out.println("Would like to fire the flare-gun yes or no:");
+            String resp = input.nextLine();
+
+            if(resp.toLowerCase().equals("yes")){
+                System.out.println("\nA rescue helicopter saw your flare it on it way");
+                System.out.println("\nYOU HAVE BEEN RESCUED");
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+
+        return false;
+
+    }
+
 }
 
