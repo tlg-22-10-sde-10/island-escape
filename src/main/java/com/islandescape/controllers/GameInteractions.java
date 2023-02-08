@@ -1,7 +1,7 @@
 /*
 ASCII Art code is referenced from: https://www.baeldung.com/ascii-art-in-java
  */
-package game_state;
+package com.islandescape.controllers;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class GameState {
+public class GameInteractions {
     private static final String gameTitle = "I" + " " + "S" + " " + "L" + " " + "A" + " " + "N" + " " + "D" +
             " " + " " + "E" + " " + "S" + " " + "C" + " " + "A" + " " + "P" + " " + "E"  ;
     private static final int width = 200;
@@ -67,13 +67,13 @@ public class GameState {
                 "\n2) Search for a safe that will contain a flare gun to signal help.\n " +
                 "\nBeware though, each option comes with its own challenges.\n" +
                 "\n" + "P.S. Timing is very important. You are only allotted a certain amount of time to escape " +
-                "\nbefore you are stuck here forever.\n " + bold +
+                "\nbefore a volcano erupts and destroys the island.\n " + bold +
                 "\nHappy Escaping!\n" + unBold + RESET;
 
         char[] array = introductionText.toCharArray();
         for (char text : array) {
             System.out.print(text);
-            TimeUnit.MILLISECONDS.sleep(60);
+            TimeUnit.MILLISECONDS.sleep(30);
         }
     }
 

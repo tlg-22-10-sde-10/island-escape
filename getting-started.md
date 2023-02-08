@@ -38,7 +38,7 @@ Gradle has a default directory structure&mdash;shown below&mdash;for the source,
 
 Since Git tracks only files and their paths relative to the repository root, but not directories themselves, each of these directories initially contains a `.keep` file, so that the directory structure is preserved in Git. If/when files are added to any given one of these directories, the `.keep` file in that directory can be deleted.
 
-### Main class of JAR artifact
+### com.islandescape.client.Main class of JAR artifact
 
 The project is configured to use the `com.github.johnrengelman.shadow` plug-in (see line 2 of [`build.gradle`](build.gradle)) to create a runnable JAR from the root project, with all runtime dependencies packaged in the same JAR. This plug-in uses the `mainClass` property of the `application` plug-in to set the corresponding attribute of the JAR's manifest. You will need to set this property by assigning a value to the `mainClass` property in [`gradle.properties`](gradle.properties). (There's a `TODO` comment for this change in that file)       
 

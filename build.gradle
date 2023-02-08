@@ -3,6 +3,7 @@ plugins {
     id 'application'
 }
 
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(project.javaVersion)
@@ -11,9 +12,14 @@ java {
 }
 
 application {
-    mainClass = 'Main'
+    mainClass = 'com.islandescape.client.Main'
 
 }
+
+
+
+
+
 
 //noinspection GroovyAssignabilityCheck
 run {
@@ -31,7 +37,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:${project.junit5Version}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${project.junit5Version}"
     //Jackson Library import of dependencies
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
     // To use JUnit4 instead of JUnit5, comment out the previous 2 lines and uncomment the following 2 lines.
     // testImplementation "junit:junit:${project.junit4Version}"
     // testRuntimeOnly "org.junit.vintage:junit-vintage-engine:${project.junit5Version}"

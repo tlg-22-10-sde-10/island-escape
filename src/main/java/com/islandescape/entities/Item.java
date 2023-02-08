@@ -1,10 +1,13 @@
-package entities;
+package com.islandescape.entities;
 
 import java.util.Objects;
 
 public class Item {
     private String name;
     private String description;
+
+    public Item() {
+    }
 
     public Item(String name, String description){
         this.name = name;
