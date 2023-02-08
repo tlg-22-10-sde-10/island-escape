@@ -4,7 +4,8 @@
     "north": "Jungle",
     "east": "Boat Crash Site",
     "description": "The beach is your starting point...you feel exhausted but must find your way out of here. You can move East, West, or North from here.",
-    "west": "Fishing Hole"
+    "west": "Fishing Hole",
+    "south": null
   },
   {
     "name": "Boat Crash Site",
