@@ -1,26 +1,36 @@
 package com.islandescape.utilities;
+
 import java.util.concurrent.TimeUnit;
 
- public class CountdownTimer {
-        public static void main(String[] args) throws InterruptedException {
-            int minutes = 0; //Initial minutes set
-            int seconds = 5; // Change this to the number of additional seconds you want to count down from
+public class CountdownTimer {
+    private static long startTime;
+    private static long endTime;
+    private static long remainingTime;
+    private static boolean hasFinished = false;
 
-            long startTime = System.currentTimeMillis();
-            long endTime = startTime + TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds);
-
-            while (System.currentTimeMillis() < endTime) {
-                long remainingTime = endTime - System.currentTimeMillis();
-                long minutesRemaining = TimeUnit.MILLISECONDS.toMinutes(remainingTime);
-                long secondsRemaining = TimeUnit.MILLISECONDS.toSeconds(remainingTime) - TimeUnit.MINUTES.toSeconds(minutesRemaining);
-
-                System.out.println(String.format("%02d:%02d", minutesRemaining, secondsRemaining));
-                Thread.sleep(1000); // Wait for 1 second
-            }
-
-            System.out.println("Time's up!");//Change to the
-        }
+    public static void startTimer(int minutes) {
+        int seconds = 0;
+        startTime = System.currentTimeMillis();
+        endTime = startTime + TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds);
     }
+
+    public static String getTimeRemaining() {
+        long remainingTime = endTime - System.currentTimeMillis();
+        long minutesRemaining = TimeUnit.MILLISECONDS.toMinutes(remainingTime);
+        long secondsRemaining = TimeUnit.MILLISECONDS.toSeconds(remainingTime) - TimeUnit.MINUTES.toSeconds(minutesRemaining);
+        if(remainingTime<=0){
+            hasFinished = true;
+        }
+
+        return String.format("%02d:%02d", minutesRemaining, secondsRemaining);
+    }
+
+
+    public static boolean countdownFinished(){
+        return hasFinished;
+    }
+
+}
 
 
 
