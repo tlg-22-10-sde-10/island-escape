@@ -57,10 +57,15 @@ public class LocationParser {
                 break;
             };
 
+
             System.out.println("Current Location: " + room.getName());
             System.out.println(room.getDescription());
             System.out.println("\nRemaining Time: " + GameInteractions.MAGENTA + CountdownTimer.getTimeRemaining()+GameInteractions.RESET);
             //room.getItems().stream().forEach(x -> System.out.println(x.getName()));
+            if(WinConditions.flareWin(items,room)){
+                gameRun = false;
+                break;
+            }
 
             if (CountdownTimer.countdownFinished()){
                 gameRun = false;
