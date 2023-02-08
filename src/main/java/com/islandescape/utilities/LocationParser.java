@@ -38,7 +38,7 @@ public class LocationParser {
     public static void Run() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
-
+        CountdownTimer.startTimer(15);
 
         try (InputStream input = LocationParser.class.getClassLoader().getResourceAsStream("locations.json")) {
             List<Location> locations = mapper.readValue(input, new TypeReference<List<Location>>() {
@@ -55,7 +55,14 @@ public class LocationParser {
 
             System.out.println("Current Location: " + room.getName());
             System.out.println(room.getDescription());
+            System.out.println("\nRemaining Time: " + GameInteractions.MAGENTA + CountdownTimer.getTimeRemaining()+GameInteractions.RESET);
             //room.getItems().stream().forEach(x -> System.out.println(x.getName()));
+
+            if (CountdownTimer.countdownFinished()){
+                gameRun = false;
+                System.out.println("You have died");
+                break;
+            }
 
             if (room.getItems() != null) {
                 System.out.println(GameInteractions.CYAN + bold + "[Items at this location:]" + unBold + GameInteractions.RESET);
