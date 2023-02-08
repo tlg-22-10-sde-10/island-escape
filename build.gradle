@@ -12,7 +12,7 @@ java {
 }
 
 application {
-    mainClass = 'Main'
+    mainClass = 'com.islandescape.client.Main'
 
 }
 

@@ -38,7 +38,7 @@ public class LocationParser {
     public static void Run() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
-        CountdownTimer.startTimer(1);
+        CountdownTimer.startTimer(5);
 
         try (InputStream input = LocationParser.class.getClassLoader().getResourceAsStream("locations.json")) {
             List<Location> locations = mapper.readValue(input, new TypeReference<List<Location>>() {
@@ -52,28 +52,28 @@ public class LocationParser {
         while (gameRun) {
             room = map.get(currentRoom);
 
-            if(WinConditions.playerCanBuildABoat(items)){
-                gameRun = false;
-                break;
-            };
-
-
             System.out.println("Current Location: " + room.getName());
             System.out.println(room.getDescription());
-            System.out.println("\nRemaining Time: " + GameInteractions.MAGENTA + CountdownTimer.getTimeRemaining()+GameInteractions.RESET);
-            //room.getItems().stream().forEach(x -> System.out.println(x.getName()));
-            if(WinConditions.flareWin(items,room)){
+            System.out.println("\nRemaining Time: " + GameInteractions.MAGENTA + CountdownTimer.getTimeRemaining() + GameInteractions.RESET);
+
+            if (WinConditions.playerCanBuildABoat(items)) {
                 gameRun = false;
                 break;
             }
 
-            if (CountdownTimer.countdownFinished()){
+            if (WinConditions.flareWin(items, room)) {
                 gameRun = false;
-                System.out.println(AsciiArt.MAGENTA+"The ground begins to shake and the Volcano on the island begins to violently erupt."+AsciiArt.RESET);
-                System.out.println(AsciiArt.MAGENTA+"There is no escaping this...Your soul now belongs to the island forever!"+AsciiArt.RESET);
+                break;
+            }
+
+            if (CountdownTimer.countdownFinished()) {
+                gameRun = false;
+                System.out.println(AsciiArt.MAGENTA + "The ground begins to shake and the Volcano on the island begins to violently erupt." + AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA + "There is no escaping this...Your soul now belongs to the island forever!" + AsciiArt.RESET);
                 System.out.println(AsciiArt.volcano);
                 break;
             }
+
 
             if (room.getItems() != null) {
                 System.out.println(GameInteractions.CYAN + bold + "[Items at this location:]" + unBold + GameInteractions.RESET);
@@ -87,9 +87,7 @@ public class LocationParser {
             System.out.print("\nWhich direction would you like to go? [Hint: You can type 'help' at any time to view a list of commands] ");
 
             String action = sc.nextLine();
-//            LocationParser.getInfo(action);
-//            LocationParser.getCurrentRoom(action, room);
-//            LocationParser.help(action);
+
 
 
             if (action.contains("look") && room.getItems() != null) {
@@ -104,13 +102,11 @@ public class LocationParser {
 
             if (action.contains("pickup")) {
                 String[] item = action.split(" ");
-
                 pickUp(room, item[1]);
             }
 
             if (action.toLowerCase().equals("show backpack")) {
                 showBackPack();
-
             }
 
             if (action.equals("quit")) {
@@ -142,7 +138,13 @@ public class LocationParser {
             String[] word = action.split(" ");
             String direction = word[1];
 
-            if (getCurrentRoom(direction, room) == null) {
+//            if (!locationMap.containsKey(direction)) {
+//                System.out.println("Invalid location. Please try again.");
+//                currentRoom = currentRoom;
+//                continue;
+//            }
+
+             if (getCurrentRoom(direction, room) == null) {
                 System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameInteractions.RESET);
             }
 
@@ -172,7 +174,6 @@ public class LocationParser {
         } else {
             System.out.println("Item not found");
         }
-
     }
 
     private static void showBackPack() {
@@ -228,7 +229,7 @@ public class LocationParser {
 //    }
 
     private static String getCurrentRoom(String direction, Location location) {
-        String result = "";
+        String result = null;
         switch (direction) {
             case "west":
                 result = location.getWest();
