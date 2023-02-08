@@ -58,11 +58,11 @@
     "east": "Jungle",
     "item": [
       {
-        "name": "Rope",
+        "name": "rope",
         "description": "A rope that is frayed but still could be used to hold something together"
       },
       {
-        "name": "Wood-Planks-Pile",
+        "name": "wood-planks-pile",
         "description": "A pile of wood planks that could be used to build something useful!"
       }
     ],
