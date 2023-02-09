@@ -123,7 +123,6 @@ public class LocationParser {
             }
 
             if (action.contains("help")) {
-                System.out.println("\n-----------------------------------------------------------------------------------------------------------");
                 System.out.println(AsciiArt.underline + "Here are the available commands: " + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'go' (direction) to go to another location" + AsciiArt.unBold + " => Example: go north" + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'pickup' (item) to place an item in your inventory" + AsciiArt.unBold + " => Example: pickup flare gun" + AsciiArt.RESET);
