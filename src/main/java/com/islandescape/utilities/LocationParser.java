@@ -50,6 +50,7 @@ public class LocationParser {
         Map<String, Location> map = locationMap;
 
         while (gameRun) {
+            String prevRoom = currentRoom;
             room = map.get(currentRoom);
 
             System.out.println("Current Location: " + room.getName());
@@ -146,9 +147,11 @@ public class LocationParser {
 
              if (getCurrentRoom(direction, room) == null) {
                 System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameInteractions.RESET);
+                continue;
             }
 
-            if (currentRoom.equals("Jungle") && direction.equals("west")) {
+
+            else if (currentRoom.equals("Jungle") && direction.equals("west")) {
                 System.out.println("Behold! I am the protector of the village...named the Sacred Totem");
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
@@ -156,8 +159,10 @@ public class LocationParser {
                 } else {
                     currentRoom = getCurrentRoom(direction, room);
                 }
-            }
-            currentRoom = getCurrentRoom(direction, room);
+            }else {
+                currentRoom = getCurrentRoom(direction, room);
+             }
+           // currentRoom = getCurrentRoom(direction, room);
         }
     }
 
