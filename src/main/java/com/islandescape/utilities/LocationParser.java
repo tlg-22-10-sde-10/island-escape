@@ -28,12 +28,13 @@ public class LocationParser {
     private static Location room;
     private static boolean gameRun = true;
 
-    String[] itemList = new String[1];
+    private String[] itemList = new String[1];
     private static List<Item> items = new ArrayList<>();
+    private static Scanner sc = new Scanner(System.in);
 
 
     public static void Run() throws IOException, InterruptedException {
-        Scanner sc = new Scanner(System.in);
+
         ObjectMapper mapper = new ObjectMapper();
         CountdownTimer.startTimer(5);
 
@@ -53,6 +54,10 @@ public class LocationParser {
             System.out.println("Remaining Time: " + AsciiArt.MAGENTA + CountdownTimer.getTimeRemaining() + "\n" + AsciiArt.RESET);
             System.out.println(AsciiArt.CYAN + AsciiArt.underline + AsciiArt.bold + "Current Location: " + room.getName() + AsciiArt.unBold + AsciiArt.RESET);
             System.out.println(room.getDescription());
+
+            if(haveSafeAndKey()){
+                useKeyOnSafe();
+            }
 
             if (WinConditions.playerCanBuildABoat(items)) {
                 gameRun = false;
@@ -250,5 +255,25 @@ public class LocationParser {
                 System.out.println("That is an invalid input from current room case");
         }
         return result;
+    }
+
+    private static boolean haveSafeAndKey(){
+        boolean haveKey = items.stream().anyMatch(item -> item.getName().equals("safe-key"));
+        boolean haveSafe = items.stream().anyMatch(item -> item.getName().equals("locked-safe"));
+        return  haveKey && haveSafe;
+    }
+
+    private static void useKeyOnSafe(){
+        if(haveSafeAndKey()){
+            System.out.println("Do you want to use key on safe? (yes/no) ");
+            String input = sc.nextLine();
+            if(input.toLowerCase().equals("yes")){
+                items.removeIf(item -> item.getName().equals("locked-safe") || item.getName().equals("safe-key"));
+                items.add(new Item("flare-gun","A flare gun that could be used to signal for help! However...there is no flare..."));
+                System.out.println("You used the key on the safe and got a flare-gun ");
+            }
+        } else {
+            System.out.println("you need both the safe and key to use on the safe");
+        }
     }
 }
