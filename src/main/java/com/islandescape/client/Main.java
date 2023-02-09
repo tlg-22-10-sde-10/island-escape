@@ -3,14 +3,15 @@ package com.islandescape.client;
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.islandescape.utilities.AsciiArt;
 import com.islandescape.utilities.LocationParser;
-import com.islandescape.controllers.GameInteractions;
+import com.islandescape.controllers.GameMessages;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
 
-        GameInteractions.gameArt();
         System.out.println();
+        System.out.println(AsciiArt.gameTitleArt);
 
         Scanner userInput = new Scanner(System.in);
         boolean continueGame = true;
@@ -20,13 +21,13 @@ public class Main {
             switch (start) {
                 case "yes":
                     System.out.println("-----------------------------------------------------------------------------------------------------------");
-                    GameInteractions.gameIntroductionText();
+                    GameMessages.gameIntroductionText();
                     System.out.println("-----------------------------------------------------------------------------------------------------------");
                     LocationParser.Run();
                     continueGame = false;
                     break;
                 case "no":
-                    System.out.println(GameInteractions.exitMessage());
+                    System.out.println(GameMessages.exitMessage());
                     continueGame = false;
                     break;
                 default:
