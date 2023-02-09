@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.islandescape.controllers.WinConditions;
 import com.islandescape.entities.Item;
 import com.islandescape.entities.Location;
-import com.islandescape.controllers.GameInteractions;
+import com.islandescape.utilities.AsciiArt;
+import com.islandescape.controllers.GameMessages;
 import com.islandescape.entities.MagicTotem;
 
 
@@ -22,10 +23,6 @@ public class LocationParser {
     private static List<String> pickedUpItems;
     private static String[] hands = new String[1];
     private static final String ALT_FILE = "src/main/resources/game-info1.json";
-    public static final String underline = "\u001b[4m";
-    public static final String bold = "\033[1m";
-    public static final String unBold = "\033[0m";
-    public static final String RED = "\u001b[31;1m";
     private static Map<String, Location> locationMap;
     private static String currentRoom = "Beach";
     private static Location room;
@@ -53,12 +50,14 @@ public class LocationParser {
         while (gameRun) {
             String prevRoom = currentRoom;
             room = map.get(currentRoom);
+
+            System.out.println("Remaining Time: " + AsciiArt.MAGENTA + CountdownTimer.getTimeRemaining() + "\n" + AsciiArt.RESET);
+            System.out.println(AsciiArt.CYAN + AsciiArt.underline + AsciiArt.bold + "Current Location: " + room.getName() + AsciiArt.unBold + AsciiArt.RESET);
+            System.out.println(room.getDescription());
+
             if(haveSafeAndKey()){
                 useKeyOnSafe();
             }
-            System.out.println("Current Location: " + room.getName());
-            System.out.println(room.getDescription());
-            System.out.println("\nRemaining Time: " + GameInteractions.MAGENTA + CountdownTimer.getTimeRemaining() + GameInteractions.RESET);
 
             if (WinConditions.playerCanBuildABoat(items)) {
                 gameRun = false;
@@ -72,26 +71,25 @@ public class LocationParser {
 
             if (CountdownTimer.countdownFinished()) {
                 gameRun = false;
-                System.out.println(AsciiArt.MAGENTA + "The ground begins to shake and the Volcano on the island begins to violently erupt." + AsciiArt.RESET);
-                System.out.println(AsciiArt.MAGENTA + "There is no escaping this...Your soul now belongs to the island forever!" + AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA + "\nThe ground begins to shake and the Volcano on the island begins to violently erupt." + AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA + "There is no escaping this...Your soul now belongs to the island forever - YOU LOSE!" + AsciiArt.RESET);
                 System.out.println(AsciiArt.volcano);
                 break;
             }
 
-
             if (room.getItems() != null) {
-                System.out.println(GameInteractions.CYAN + bold + "[Items at this location:]" + unBold + GameInteractions.RESET);
+                System.out.println(AsciiArt.CYAN + "\nItems at this location >>>" + AsciiArt.RESET);
                 for (Item item : room.getItems()) {
-                    System.out.println(item.getName());
+                    System.out.println("=> " + item.getName());
                 }
             } else {
-                System.out.println(GameInteractions.CYAN + bold + "[There are no items at this location]" + unBold + GameInteractions.RESET);
+                System.out.println(AsciiArt.CYAN + "[There are no items at this location]" + AsciiArt.RESET);
             }
 
-            System.out.print("\nWhich direction would you like to go? [Hint: You can type 'help' at any time to view a list of commands] ");
+            System.out.print("\nWhich direction would you like to go? [Hint - You can type 'help' at any time to view a list of commands]: ");
 
             String action = sc.nextLine();
-
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
 
 
             if (action.contains("look") && room.getItems() != null) {
@@ -103,7 +101,6 @@ public class LocationParser {
                 }
             }
 
-
             if (action.contains("pickup")) {
                 String[] item = action.split(" ");
                 pickUp(room, item[1]);
@@ -114,27 +111,29 @@ public class LocationParser {
             }
 
             if (action.equals("quit")) {
-                System.out.println(RED + "\nAre you sure you want to quit? Yes or No?" + GameInteractions.RESET);
+                System.out.println(AsciiArt.RED + "\nAre you sure you want to quit? Yes or No?" + AsciiArt.RESET);
                 action = sc.nextLine().toLowerCase();
                 if (action.equals("no")) {
                     continue;
                 } else {
                     gameRun = false;
-                    System.out.println(GameInteractions.quitMessage());
+                    System.out.println(GameMessages.quitMessage());
                     continue;
                 }
             }
 
             if (action.contains("help")) {
-                System.out.println(underline + "\nHere are the available commands: " + GameInteractions.RESET);
-                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameInteractions.RESET);
-                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameInteractions.RESET);
-                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" + GameInteractions.RESET);
+                System.out.println("\n-----------------------------------------------------------------------------------------------------------");
+                System.out.println(AsciiArt.underline + "Here are the available commands: " + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'go' (direction) to go to another location" + AsciiArt.unBold + " => Example: go north" + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'pickup' (item) to place an item in your inventory" + AsciiArt.unBold + " => Example: pickup flare gun" + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'show' (item) to see a description of an item" + AsciiArt.unBold + " => Example: show flare gun" + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'quit'" + AsciiArt.unBold + " to end the game at any time" + AsciiArt.RESET);
+                System.out.println("-----------------------------------------------------------------------------------------------------------");
             }
 
             //TODO: Bug keeps outprinting not a complete response
             if (!action.contains("go")) {
-                //System.out.println("That's not a complete response. Please try again.");
                 System.out.println();
                 continue;
             }
@@ -149,13 +148,14 @@ public class LocationParser {
 //            }
 
              if (getCurrentRoom(direction, room) == null) {
-                System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameInteractions.RESET);
+                System.out.println(AsciiArt.RED + "You can't go in that direction. Try a different way.\n" + AsciiArt.RESET);
                 continue;
             }
 
 
             else if (currentRoom.equals("Jungle") && direction.equals("west")) {
-                System.out.println("Behold! I am the protector of the village...named the Sacred Totem");
+                System.out.println(AsciiArt.magicTotem);
+                System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
                     continue;

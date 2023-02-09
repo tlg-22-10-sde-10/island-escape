@@ -3,7 +3,7 @@
     "name": "Beach",
     "north": "Jungle",
     "east": "Boat Crash Site",
-    "description": "The beach is your starting point...you feel exhausted but must find your way out of here. You can move East, West, or North from here.",
+    "description": "The beach is your starting point...you feel exhausted but must find your way out of here.\n<<<You can move East, West, or North from here.>>>",
     "west": "Fishing Hole",
     "south": null
   },
@@ -12,19 +12,19 @@
     "west": "Beach",
     "item": [
       {
-        "name": "Fishing-Net",
+        "name": "fishing-net",
         "description": "A ragged fishing net. Still useful to catch fish, even though some holes exist..."
       },
       {
-        "name": "Knife",
+        "name": "knife",
         "description": "A rusted Bowie Knife. Still sharp enough to cause problems."
       },
       {
-        "name": "Backpack",
+        "name": "backpack",
         "description": "An old military issue backpack. This can hold many items!"
       }
     ],
-    "description": "The remnants of the wreckage from a boat are washed ashore...some items are thrown about. Where is everyone else? You can move West from here"
+    "description": "The remnants of the wreckage from a boat are washed ashore...some items are thrown about. Where is everyone else?\n<<<You can move West from here.>>>"
   },
    {
     "name":"Fishing Hole",
@@ -32,7 +32,7 @@
     "item": [
       {
         "name": "Fish",
-        "description": "A live fish from the ocean! Perhaps a tuna of some kind? This could be useful to feed something..."
+        "description": "A live fish from the ocean! Perhaps a tuna of some kind? This could be useful to feed something."
       },
       {
         "name": "safe-key",
@@ -49,10 +49,10 @@
     "item": [
       {
         "name": "paddle",
-        "description": "An old oar that used to help boats paddle along. How did it end up in the jungle? Did someone use it to protect themselves?..."
+        "description": "An old oar that used to help boats paddle along. How did it end up in the jungle? Did someone use it to protect themselves?"
       }
     ],
-    "description": "You enter a thick, lush jungle full of different plants and animals making a variety of sounds. The humidity beats down upon you, as you journey continues. You can go east from here, however it appears there could be another path.."
+    "description": "You enter a thick, lush jungle full of different plants and animals making a variety of sounds.\n<<<You can go East or West from here.>>>"
   },
   {
     "name": "Village",
@@ -67,7 +67,7 @@
         "description": "A pile of wood planks that could be used to build something useful!"
       }
     ],
-    "description": "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses. They are friendly to you, since you have been deemed worthy by the Magic Totem"
+    "description": "A bustling town of villagers who live on the island. There are many members trading, hunting, and building new houses.\nThey are friendly to you, since you have been deemed worthy by the Magic Totem.\n<<<You can go East from here.>>>"
   },
   {
     "name": "Abandoned Research Facility",
@@ -80,10 +80,10 @@
       },
       {
         "name": "flare-gun",
-        "description": "A flare gun that could be used to signal for help! However...there is no flare..."
+        "description": "A flare gun that could be used to signal for help!"
       }
     ],
-    "description": "An abandoned research facility that is overgrown with vegetation and run down...It seems this place used to conduct some science experiments a long time ago?"
+    "description": "An abandoned research facility that is overgrown with vegetation and run down. It seems this place used to\nconduct some science experiments a long time ago.\n<<<You can go East or West from here.>>>"
   },
   {
     "name": "Mountain Peak",
@@ -94,6 +94,6 @@
         "description": "A flare round that could be shot out of a flare gun...this could help me escape!"
       }
     ],
-    "description": "The top of the mountain on the island. You can see the ocean and all sides from this point, so can anyone passing by...perhaps a shipping vessel!"
+    "description": "The top of the mountain on the island. You can see the ocean and all sides from this point,\nso can anyone passing by...perhaps a shipping vessel!\n<<<You can West from here.>>>"
   }
 ]
