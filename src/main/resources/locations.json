@@ -35,7 +35,7 @@
         "description": "A live fish from the ocean! Perhaps a tuna of some kind? This could be useful to feed something..."
       },
       {
-        "name": "Safe-Key",
+        "name": "safe-key",
         "description": "A rusty key that appears to open something. Ingen is etched on the side but faded..."
       }
     ],
@@ -75,7 +75,7 @@
     "east": "Mountain Peak",
     "item": [
       {
-        "name": "Locked Safe",
+        "name": "locked-safe",
         "description": "A safe that seems to have been closed for ages...I wonder what could be inside?"
       },
       {
