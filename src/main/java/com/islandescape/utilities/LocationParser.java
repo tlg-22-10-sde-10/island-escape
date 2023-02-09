@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.islandescape.controllers.WinConditions;
 import com.islandescape.entities.Item;
 import com.islandescape.entities.Location;
+import com.islandescape.entities.MountainPredator;
 import com.islandescape.utilities.AsciiArt;
 import com.islandescape.controllers.GameMessages;
 import com.islandescape.entities.MagicTotem;
@@ -141,11 +142,18 @@ public class LocationParser {
             String[] word = action.split(" ");
             String direction = word[1];
 
-//            if (!locationMap.containsKey(direction)) {
-//                System.out.println("Invalid location. Please try again.");
-//                currentRoom = currentRoom;
-//                continue;
-//            }
+            if(MountainPredator.PredatorAttack(currentRoom, direction, items)){
+                gameRun = true;
+            }
+            if(MountainPredator.PredatorDeath()){
+                gameRun = false;
+                break;
+            }
+            if(MountainPredator.EncounterWithoutFish()){
+                gameRun = true;
+                currentRoom = "Jungle";
+                continue;
+            }
 
              if (getCurrentRoom(direction, room) == null) {
                 System.out.println(AsciiArt.RED + "You can't go in that direction. Try a different way.\n" + AsciiArt.RESET);
