@@ -25,7 +25,8 @@ public class GameMessages {
                 "\n2) Search for a safe that will contain a flare gun to signal help.\n " +
                 "\nBeware though, each option comes with its own challenges and you only have 5 minutes to escape" +
                 "\nbefore a volcano erupts and destroys the island.\n" +
-                "\nP.S. There will be items along the way that may prove useful later. Don't forget to pick them up!\n" + bold +
+                "\nP.S. There will be items along the way that may prove useful later. Don't forget to pick them up!" +
+                "\n(Hint - you can always type in show inventory to see what items you have in your possession)\n" + bold +
                 "\nHappy Escaping!\n" + unBold + AsciiArt.RESET;
 
         char[] array = introductionText.toCharArray();
