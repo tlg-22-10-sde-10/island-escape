@@ -31,7 +31,7 @@
     "east": "Beach",
     "item": [
       {
-        "name": "Fish",
+        "name": "fish",
         "description": "A live fish from the ocean! Perhaps a tuna of some kind? This could be useful to feed something."
       },
       {

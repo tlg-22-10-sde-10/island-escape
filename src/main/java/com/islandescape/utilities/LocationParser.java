@@ -12,6 +12,8 @@ import com.islandescape.controllers.GameMessages;
 import com.islandescape.entities.MagicTotem;
 
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -34,7 +36,7 @@ public class LocationParser {
     private static Scanner sc = new Scanner(System.in);
 
 
-    public static void Run() throws IOException, InterruptedException {
+    public static void Run() throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
 
         ObjectMapper mapper = new ObjectMapper();
         CountdownTimer.startTimer(5);
@@ -51,7 +53,7 @@ public class LocationParser {
         while (gameRun) {
             String prevRoom = currentRoom;
             room = map.get(currentRoom);
-
+           // SoundEffects.musicPlayer(currentRoom);
             System.out.println("Remaining Time: " + AsciiArt.MAGENTA + CountdownTimer.getTimeRemaining() + "\n" + AsciiArt.RESET);
             System.out.println(AsciiArt.CYAN + AsciiArt.underline + AsciiArt.bold + "Current Location: " + room.getName() + AsciiArt.unBold + AsciiArt.RESET);
             System.out.println(room.getDescription());
@@ -61,6 +63,7 @@ public class LocationParser {
             }
 
             if (WinConditions.playerCanBuildABoat(items)) {
+                System.out.println(AsciiArt.boat);
                 gameRun = false;
                 break;
             }
@@ -90,6 +93,7 @@ public class LocationParser {
             System.out.print("\nWhich direction would you like to go? [Hint - You can type 'help' at any time to view a list of commands]: ");
 
             String action = sc.nextLine();
+
             System.out.println("-----------------------------------------------------------------------------------------------------------");
 
 
@@ -139,6 +143,7 @@ public class LocationParser {
                 continue;
             }
 
+
             String[] word = action.split(" ");
             String direction = word[1];
 
@@ -152,18 +157,35 @@ public class LocationParser {
             if(MountainPredator.EncounterWithoutFish()){
                 gameRun = true;
                 currentRoom = "Jungle";
+                MountainPredator.setEncounterWithoutFish(false);
                 continue;
             }
+
+//            if(MountainPredator.PredatorAttack(currentRoom, direction, items)){
+//                if(MountainPredator.EncounterWithoutFish()){
+//                    gameRun = true;
+//                   // currentRoom = "Jungle";
+//                } else if (MountainPredator.PredatorDeath()){
+//                    gameRun = false;
+//                    break;
+//                } else{
+//                    continue;
+//                }
+//            }
+
 
              if (getCurrentRoom(direction, room) == null) {
                 System.out.println(AsciiArt.RED + "You can't go in that direction. Try a different way.\n" + AsciiArt.RESET);
                 continue;
             }
 
+//             SoundEffects.musicPlayer(currentRoom);
 
-            else if (currentRoom.equals("Jungle") && direction.equals("west")) {
-                System.out.println(AsciiArt.magicTotem);
-                System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
+
+
+             if (currentRoom.equals("Jungle") && direction.equals("west")) {
+               System.out.println(AsciiArt.magicTotem);
+               System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
                     continue;
@@ -284,4 +306,5 @@ public class LocationParser {
             System.out.println("you need both the safe and key to use on the safe");
         }
     }
+
 }
