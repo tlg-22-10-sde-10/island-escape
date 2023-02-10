@@ -61,11 +61,13 @@ public class LocationParser {
             }
 
             if (WinConditions.playerCanBuildABoat(items)) {
+                System.out.println(AsciiArt.boat);
                 gameRun = false;
                 break;
             }
 
             if (WinConditions.flareWin(items, room)) {
+                System.out.println(AsciiArt.fireworks);
                 gameRun = false;
                 break;
             }
@@ -162,7 +164,7 @@ public class LocationParser {
 
             else if (currentRoom.equals("Jungle") && direction.equals("west")) {
                 System.out.println(AsciiArt.magicTotem);
-                System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
+                System.out.println(AsciiArt.MAGENTA + "\nBehold! I am the protector of the village...named the Sacred Totem" + AsciiArt.RESET);
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
                     continue;
@@ -272,15 +274,16 @@ public class LocationParser {
 
     private static void useKeyOnSafe(){
         if(haveSafeAndKey()){
-            System.out.println("Do you want to use key on safe? (yes/no) ");
+            System.out.print(AsciiArt.CYAN + "\nYou now possess the safe key. Do you want to use it on safe? (yes/no): " + AsciiArt.RESET);
             String input = sc.nextLine();
             if(input.toLowerCase().equals("yes")){
                 items.removeIf(item -> item.getName().equals("locked-safe") || item.getName().equals("safe-key"));
                 items.add(new Item("flare-gun","A flare gun that could be used to signal for help! However...there is no flare..."));
-                System.out.println("You used the key on the safe and got a flare-gun ");
+                System.out.println(AsciiArt.MAGENTA + "\nYou now have the flare-gun. Keep going - Head for the mountain top!" + AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA + "(Hint: Head East! But you can also go West...)" + AsciiArt.RESET);
             }
         } else {
-            System.out.println("you need both the safe and key to use on the safe");
+            System.out.println("You need both the safe and key to use on the safe.");
         }
     }
 }

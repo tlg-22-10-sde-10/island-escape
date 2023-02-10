@@ -18,10 +18,6 @@
       {
         "name": "knife",
         "description": "A rusted Bowie Knife. Still sharp enough to cause problems."
-      },
-      {
-        "name": "backpack",
-        "description": "An old military issue backpack. This can hold many items!"
       }
     ],
     "description": "The remnants of the wreckage from a boat are washed ashore...some items are thrown about. Where is everyone else?\n<<<You can move West from here.>>>"
@@ -31,7 +27,7 @@
     "east": "Beach",
     "item": [
       {
-        "name": "Fish",
+        "name": "fish",
         "description": "A live fish from the ocean! Perhaps a tuna of some kind? This could be useful to feed something."
       },
       {
@@ -39,7 +35,7 @@
         "description": "A rusty key that appears to open something. Ingen is etched on the side but faded..."
       }
     ],
-    "description": "A whirlpool near the coast that has some settled water. You see some fish swimming around in the pool."
+    "description": "A whirlpool near the coast that has some settled water. You see some fish swimming around in the pool.\n<<<You can go East from here.>>>"
   },
   {
     "name": "Jungle",
@@ -84,12 +80,6 @@
   {
     "name": "Mountain Peak",
     "west": "Abandoned Research Facility",
-    "item": [
-      {
-        "name": "Flare Round",
-        "description": "A flare round that could be shot out of a flare gun...this could help me escape!"
-      }
-    ],
     "description": "The top of the mountain on the island. You can see the ocean and all sides from this point,\nso can anyone passing by...perhaps a shipping vessel!\n<<<You can West from here.>>>"
   }
 ]

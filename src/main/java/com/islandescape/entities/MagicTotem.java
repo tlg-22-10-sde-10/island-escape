@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MagicTotem {
 
-    private static final String riddle = "If you can answer the riddle, you will prove yourself worthy to enter the village >>>>\n" + AsciiArt.MAGENTA +
+    private static final String riddle = "If you can answer the riddle, you will prove yourself worthy to enter the village >>>>\n" + AsciiArt.CYAN +
             "Riddle: I go all around the world, but never leave the corner. What am I? " + AsciiArt.RESET;
 
     public static boolean riddle() throws InterruptedException {
