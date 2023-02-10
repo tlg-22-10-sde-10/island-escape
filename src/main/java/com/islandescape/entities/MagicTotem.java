@@ -9,10 +9,10 @@ public class MagicTotem {
 
     private static final String riddle = "If you can answer the riddle, you will prove yourself worthy to enter the village >>>>\n" + AsciiArt.CYAN +
             "Riddle: I go all around the world, but never leave the corner. What am I? " + AsciiArt.RESET;
-    static boolean totemEncounter;
+    static boolean totemEncounterPassed;
 
     public static boolean riddle() throws InterruptedException {
-        if(!totemEncounter) {
+        //if(!totemEncounterPassed) {
             Scanner userAnswer = new Scanner(System.in);
             boolean answer;
 
@@ -29,7 +29,7 @@ public class MagicTotem {
                 System.out.println(AsciiArt.MAGENTA + "\nThat is correct - you may enter. Welcome to the Village!\n" + AsciiArt.RESET);
                 System.out.println("-----------------------------------------------------------------------------------------------------------");
                 answer = true;
-                totemEncounter = true;
+               // totemEncounterPassed = true;
             } else {
                 System.out.println(AsciiArt.RED + "\nThat is incorrect - you are forbidden from entering here. Be gone!\n" + AsciiArt.RESET);
                 System.out.println("-----------------------------------------------------------------------------------------------------------");
@@ -37,6 +37,16 @@ public class MagicTotem {
             }
             return answer;
         }
-        return false;
+        //return false;
     }
-}
+//    public static boolean totemPassed(){
+//        if (totemEncounterPassed){
+//            System.out.println();
+//        }
+//        return totemEncounterPassed;
+//    }
+//
+//    public static void setTotemEncounterPassed(boolean totemEncounterPassed) {
+//        MagicTotem.totemEncounterPassed = totemEncounterPassed;
+//    }
+

@@ -47,7 +47,7 @@ public class LocationParser {
         while (gameRun) {
 
             room = map.get(currentRoom);
-           // SoundEffects.musicPlayer(currentRoom);
+            SoundEffects.musicPlayer(currentRoom);
             System.out.println("Remaining Time: " + AsciiArt.MAGENTA + CountdownTimer.getTimeRemaining() + "\n" + AsciiArt.RESET);
             System.out.println(AsciiArt.CYAN + AsciiArt.underline + AsciiArt.bold + "Current Location: " + room.getName() + AsciiArt.unBold + AsciiArt.RESET);
             System.out.println(room.getDescription());
@@ -165,6 +165,7 @@ public class LocationParser {
                 System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
+                    //MagicTotem.setTotemEncounterPassed(false);
                     continue;
                 } else {
                     currentRoom = getCurrentRoom(direction, room);
