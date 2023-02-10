@@ -22,16 +22,10 @@ import java.util.stream.Collectors;
 
 //Class that parses the JSON and starts the game
 public class LocationParser {
-    private static JsonNode rooms;
-    private static List<String> pickedUpItems;
-    private static String[] hands = new String[1];
-    private static final String ALT_FILE = "src/main/resources/game-info1.json";
     private static Map<String, Location> locationMap;
     private static String currentRoom = "Beach";
     private static Location room;
     private static boolean gameRun = true;
-
-    private String[] itemList = new String[1];
     private static List<Item> items = new ArrayList<>();
     private static Scanner sc = new Scanner(System.in);
 
@@ -51,7 +45,7 @@ public class LocationParser {
         Map<String, Location> map = locationMap;
 
         while (gameRun) {
-            String prevRoom = currentRoom;
+
             room = map.get(currentRoom);
            // SoundEffects.musicPlayer(currentRoom);
             System.out.println("Remaining Time: " + AsciiArt.MAGENTA + CountdownTimer.getTimeRemaining() + "\n" + AsciiArt.RESET);
@@ -178,7 +172,7 @@ public class LocationParser {
             }else {
                 currentRoom = getCurrentRoom(direction, room);
              }
-           // currentRoom = getCurrentRoom(direction, room);
+
         }
     }
 
@@ -201,53 +195,6 @@ public class LocationParser {
         items.stream().forEach(item -> System.out.println(item.getName()));
     }
 
-
-//    private static void help(String action) {
-//        if (action.contains("help")) {
-//            System.out.println(underline + "\nHere are the available commands: " + GameInteractions.RESET);
-//            System.out.println("-Type" + GameInteractions.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameInteractions.RESET);
-//            System.out.println("-Type" + GameInteractions.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameInteractions.RESET);
-//            System.out.println("-Type" + GameInteractions.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" + GameInteractions.RESET);
-//        }
-//    }
-
-// TODO: Make everything into methods
-//    private static void look(String action) {
-//        if (action.contains("look") && room.getItems() != null) {
-//            for (Item item : room.getItems()) {
-//                if (item.getName().toLowerCase().equals(action.substring(5))) {
-//                    System.out.println(item.getDescription());
-//                }
-//            }
-//        }
-//    }
-//
-//    private static void quit(String action) {
-//        if (action.equals("quit")) {
-//            System.out.println(RED + "\nAre you sure you want to quit? Okay or No?" + GameInteractions.RESET);
-//            Scanner scanner = new Scanner(System.in);
-//            String nextAction = scanner.next();
-//            if (nextAction.equals("Okay")) {
-//                System.out.println(GameInteractions.quitMessage());
-//                gameRun = false;
-//            } else {
-//                gameRun = true;
-//            }
-//        }
-//    }
-
-
-//    private static String getInfo(String action) {
-//        String actionInput = "";
-//        switch (action) {
-//            case "help":
-//                LocationParser.help(action);
-//                break;
-//            default:
-//                System.out.println("wut from getinfo case");
-//        }
-//        return actionInput;
-//    }
 
     private static String getCurrentRoom(String direction, Location location) {
         String result = null;
@@ -284,7 +231,6 @@ public class LocationParser {
                 items.removeIf(item -> item.getName().equals("locked-safe") || item.getName().equals("safe-key"));
                 items.add(new Item("flare-gun","A flare gun that could be used to signal for help! However...there is no flare..."));
                 System.out.println(AsciiArt.MAGENTA + "\nYou now have the flare-gun. Keep going - Head for the mountain top!" + AsciiArt.RESET);
-                System.out.println(AsciiArt.MAGENTA + "(Hint: Head East! But you can also go West...)" + AsciiArt.RESET);
             }
         } else {
             System.out.println("You need both the safe and key to use on the safe.");
