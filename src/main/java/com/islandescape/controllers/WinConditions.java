@@ -2,6 +2,7 @@ package com.islandescape.controllers;
 
 import com.islandescape.entities.Item;
 import com.islandescape.entities.Location;
+import com.islandescape.utilities.AsciiArt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,15 +21,15 @@ public class WinConditions {
         }
 
         if(items.containsAll(Arrays.asList(boat))){
-            System.out.print("You have obtained all items needed to build a boat and escape.\n Would you like to build a boat now? Yes/No: ");
+            System.out.print(AsciiArt.CYAN + "\nYou have obtained all items needed to build a boat and escape.\nWould you like to build a boat now? Yes/No: " + AsciiArt.RESET);
             String response = input.nextLine();
 
             if(response.equalsIgnoreCase("yes")) {
-                System.out.println("The Villagers have sympathy for you and assist you with building the boat.\n" +
-                        "You win!!!! Safe travels home!!!\n");
+                System.out.println(AsciiArt.MAGENTA + "\nThe Villagers have sympathy for you and assist you with building the boat.\n" +
+                        "YOU WIN!!!! Safe travels home!!!\n" + AsciiArt.RESET);
                 return true;
             } else {
-                System.out.println("You have decided to not build a boat at this time. Continue to watch the time. You need to escape!");
+                System.out.println(AsciiArt.CYAN + "\nYou have decided not to build a boat at this time. Continue to watch the time. You need to escape!" + AsciiArt.RESET);
                 return false;
             }
         }
@@ -47,13 +48,12 @@ public class WinConditions {
         }
 
         if(hasFlare && location.getName().equals("Mountain Peak")){
-            System.out.println("You are at the top of mountain");
-            System.out.println("Would like to fire the flare-gun yes or no:");
+            System.out.print(AsciiArt.CYAN +"\nYou made it to the top of mountain! Would like to fire the flare-gun to signal for help? (yes/no): " + AsciiArt.RESET);
             String resp = input.nextLine();
 
             if(resp.toLowerCase().equals("yes")){
-                System.out.println("\nA rescue helicopter saw your flare it on it way");
-                System.out.println("\nYOU HAVE BEEN RESCUED");
+                System.out.println(AsciiArt.MAGENTA + "\nA rescue helicopter saw your flare and is on the way - You have been rescued!");
+                System.out.println("\nYOU WIN!");
                 return true;
             }
             else {

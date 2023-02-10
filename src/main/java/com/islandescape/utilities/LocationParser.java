@@ -69,6 +69,7 @@ public class LocationParser {
             }
 
             if (WinConditions.flareWin(items, room)) {
+                System.out.println(AsciiArt.fireworks);
                 gameRun = false;
                 break;
             }
@@ -93,7 +94,6 @@ public class LocationParser {
             System.out.print("\nWhich direction would you like to go? [Hint - You can type 'help' at any time to view a list of commands]: ");
 
             String action = sc.nextLine();
-
             System.out.println("-----------------------------------------------------------------------------------------------------------");
 
 
@@ -143,7 +143,6 @@ public class LocationParser {
                 continue;
             }
 
-
             String[] word = action.split(" ");
             String direction = word[1];
 
@@ -161,31 +160,15 @@ public class LocationParser {
                 continue;
             }
 
-//            if(MountainPredator.PredatorAttack(currentRoom, direction, items)){
-//                if(MountainPredator.EncounterWithoutFish()){
-//                    gameRun = true;
-//                   // currentRoom = "Jungle";
-//                } else if (MountainPredator.PredatorDeath()){
-//                    gameRun = false;
-//                    break;
-//                } else{
-//                    continue;
-//                }
-//            }
-
-
              if (getCurrentRoom(direction, room) == null) {
                 System.out.println(AsciiArt.RED + "You can't go in that direction. Try a different way.\n" + AsciiArt.RESET);
                 continue;
             }
 
-//             SoundEffects.musicPlayer(currentRoom);
 
-
-
-             if (currentRoom.equals("Jungle") && direction.equals("west")) {
-               System.out.println(AsciiArt.magicTotem);
-               System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
+            else if (currentRoom.equals("Jungle") && direction.equals("west")) {
+                System.out.println(AsciiArt.magicTotem);
+                System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
                     continue;
@@ -295,16 +278,16 @@ public class LocationParser {
 
     private static void useKeyOnSafe(){
         if(haveSafeAndKey()){
-            System.out.println("Do you want to use key on safe? (yes/no) ");
+            System.out.print(AsciiArt.CYAN + "\nYou now possess the safe key. Do you want to use it on safe? (yes/no): " + AsciiArt.RESET);
             String input = sc.nextLine();
             if(input.toLowerCase().equals("yes")){
                 items.removeIf(item -> item.getName().equals("locked-safe") || item.getName().equals("safe-key"));
                 items.add(new Item("flare-gun","A flare gun that could be used to signal for help! However...there is no flare..."));
-                System.out.println("You used the key on the safe and got a flare-gun ");
+                System.out.println(AsciiArt.MAGENTA + "\nYou now have the flare-gun. Keep going - Head for the mountain top!" + AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA + "(Hint: Head East! But you can also go West...)" + AsciiArt.RESET);
             }
         } else {
-            System.out.println("you need both the safe and key to use on the safe");
+            System.out.println("You need both the safe and key to use on the safe.");
         }
     }
-
 }
