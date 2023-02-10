@@ -12,6 +12,8 @@ import com.islandescape.controllers.GameMessages;
 import com.islandescape.entities.MagicTotem;
 
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -34,7 +36,7 @@ public class LocationParser {
     private static Scanner sc = new Scanner(System.in);
 
 
-    public static void Run() throws IOException, InterruptedException {
+    public static void Run() throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
 
         ObjectMapper mapper = new ObjectMapper();
         CountdownTimer.startTimer(5);
@@ -51,7 +53,7 @@ public class LocationParser {
         while (gameRun) {
             String prevRoom = currentRoom;
             room = map.get(currentRoom);
-
+           // SoundEffects.musicPlayer(currentRoom);
             System.out.println("Remaining Time: " + AsciiArt.MAGENTA + CountdownTimer.getTimeRemaining() + "\n" + AsciiArt.RESET);
             System.out.println(AsciiArt.CYAN + AsciiArt.underline + AsciiArt.bold + "Current Location: " + room.getName() + AsciiArt.unBold + AsciiArt.RESET);
             System.out.println(room.getDescription());
@@ -126,6 +128,7 @@ public class LocationParser {
             }
 
             if (action.contains("help")) {
+                System.out.println("\n-----------------------------------------------------------------------------------------------------------");
                 System.out.println(AsciiArt.underline + "Here are the available commands: " + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'go' (direction) to go to another location" + AsciiArt.unBold + " => Example: go north" + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'pickup' (item) to place an item in your inventory" + AsciiArt.unBold + " => Example: pickup flare gun" + AsciiArt.RESET);
@@ -153,6 +156,7 @@ public class LocationParser {
             if(MountainPredator.EncounterWithoutFish()){
                 gameRun = true;
                 currentRoom = "Jungle";
+                MountainPredator.setEncounterWithoutFish(false);
                 continue;
             }
 
@@ -164,7 +168,7 @@ public class LocationParser {
 
             else if (currentRoom.equals("Jungle") && direction.equals("west")) {
                 System.out.println(AsciiArt.magicTotem);
-                System.out.println(AsciiArt.MAGENTA + "\nBehold! I am the protector of the village...named the Sacred Totem" + AsciiArt.RESET);
+                System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
                     continue;

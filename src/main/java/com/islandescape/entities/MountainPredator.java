@@ -35,8 +35,9 @@ public class MountainPredator {
                         items.add(item.getName());
                     }
 
-                    if (itemList.contains(fish)){
+                    if (!items.contains(fish)){
                         encounterWithoutFish = true;
+                        break;
                     }
 
 
@@ -76,6 +77,11 @@ public class MountainPredator {
             System.out.println("\nYou need something to distract this predator...it's safer to turn back for now");
         }
         return encounterWithoutFish;
+    }
+
+
+    public static void setEncounterWithoutFish(boolean encounterWithoutFish) {
+        MountainPredator.encounterWithoutFish = encounterWithoutFish;
     }
 
 
