@@ -1,7 +1,6 @@
 package com.islandescape.utilities;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.islandescape.controllers.WinConditions;
 import com.islandescape.entities.Item;
