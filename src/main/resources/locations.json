@@ -12,10 +12,6 @@
     "west": "Beach",
     "item": [
       {
-        "name": "fishing-net",
-        "description": "A ragged fishing net. Still useful to catch fish, even though some holes exist..."
-      },
-      {
         "name": "knife",
         "description": "A rusted Bowie Knife. Still sharp enough to cause problems."
       }

@@ -109,8 +109,8 @@ public class LocationParser {
                 pickUp(room, item[1]);
             }
 
-            if (action.toLowerCase().equals("show backpack")) {
-                showBackPack();
+            if (action.toLowerCase().equals("show inventory")) {
+                showInventory();
             }
 
             if (action.equals("quit")) {
@@ -130,11 +130,11 @@ public class LocationParser {
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'go' (direction) to go to another location" + AsciiArt.unBold + " => Example: go north" + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'pickup' (item) to place an item in your inventory" + AsciiArt.unBold + " => Example: pickup flare gun" + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'show' (item) to see a description of an item" + AsciiArt.unBold + " => Example: show flare gun" + AsciiArt.RESET);
+                System.out.println("----- You can also type" + AsciiArt.CYAN + AsciiArt.bold + " 'show inventory'" + AsciiArt.unBold + " to see all the items you have in your possession" + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'quit'" + AsciiArt.unBold + " to end the game at any time" + AsciiArt.RESET);
                 System.out.println("-----------------------------------------------------------------------------------------------------------");
             }
 
-            //TODO: Bug keeps outprinting not a complete response
             if (!action.contains("go")) {
                 System.out.println();
                 continue;
@@ -193,7 +193,7 @@ public class LocationParser {
         }
     }
 
-    private static void showBackPack() {
+    private static void showInventory() {
         items.stream().forEach(item -> System.out.println(item.getName()));
     }
 
