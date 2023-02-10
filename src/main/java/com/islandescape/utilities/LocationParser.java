@@ -86,7 +86,6 @@ public class LocationParser {
             }
 
             System.out.print("\nWhich direction would you like to go? [Hint - You can type 'help' at any time to view a list of commands]: ");
-
             String action = sc.nextLine();
             System.out.println("-----------------------------------------------------------------------------------------------------------");
 
@@ -106,6 +105,7 @@ public class LocationParser {
             }
 
             if (action.toLowerCase().equals("show inventory")) {
+                System.out.println(AsciiArt.CYAN + "Inventory:" + AsciiArt.RESET);
                 showInventory();
             }
 
@@ -122,11 +122,10 @@ public class LocationParser {
             }
 
             if (action.contains("help")) {
-                System.out.println("\n-----------------------------------------------------------------------------------------------------------");
                 System.out.println(AsciiArt.underline + "Here are the available commands: " + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'go' (direction) to go to another location" + AsciiArt.unBold + " => Example: go north" + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'pickup' (item) to place an item in your inventory" + AsciiArt.unBold + " => Example: pickup flare gun" + AsciiArt.RESET);
-                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'show' (item) to see a description of an item" + AsciiArt.unBold + " => Example: show flare gun" + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'look' (item) to see a description of an item" + AsciiArt.unBold + " => Example: look flare gun" + AsciiArt.RESET);
                 System.out.println("----- You can also type" + AsciiArt.CYAN + AsciiArt.bold + " 'show inventory'" + AsciiArt.unBold + " to see all the items you have in your possession" + AsciiArt.RESET);
                 System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'quit'" + AsciiArt.unBold + " to end the game at any time" + AsciiArt.RESET);
                 System.out.println("-----------------------------------------------------------------------------------------------------------");
