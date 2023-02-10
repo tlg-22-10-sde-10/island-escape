@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 public class CountdownTimer {
     private static long startTime;
     private static long endTime;
-    private static long remainingTime;
     private static boolean hasFinished = false;
 
     public static void startTimer(int minutes) {
