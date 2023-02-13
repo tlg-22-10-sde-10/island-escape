@@ -16,6 +16,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class LocationParser {
     private static boolean gameRun = true;
     private static List<Item> items = new ArrayList<>();
     private static Scanner sc = new Scanner(System.in);
+    private static String mute;
 
 
     public static void Run() throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
@@ -55,14 +57,18 @@ public class LocationParser {
                 useKeyOnSafe();
             }
 
-            if (WinConditions.playerCanBuildABoat(items)) {
+            if (WinConditions.playerCanBuildABoat(items))
+            {
+                SoundEffects.boatEscape();
                 System.out.println(AsciiArt.boat);
                 gameRun = false;
                 break;
             }
 
             if (WinConditions.flareWin(items, room)) {
+                SoundEffects.flareGunEscape();
                 System.out.println(AsciiArt.fireworks);
+                TimeUnit.MILLISECONDS.sleep(10000);
                 gameRun = false;
                 break;
             }
@@ -176,13 +182,14 @@ public class LocationParser {
     }
 
 
-    private static void pickUp(Location room, String itemName) {
+    private static void pickUp(Location room, String itemName) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Optional<Item> itemToPickUp = room.getItems().stream()
                 .filter(item -> item.getName().toLowerCase().equals(itemName.toLowerCase()))
                 .findFirst();
         if (itemToPickUp.isPresent()) {
             Item item = itemToPickUp.get();
             items.add(item);
+            SoundEffects.itemSounds();
             room.getItems().remove(item);
             System.out.println("You have picked up the following item: " + item.getName());
         } else {
