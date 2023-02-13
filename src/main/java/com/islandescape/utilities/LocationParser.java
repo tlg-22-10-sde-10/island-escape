@@ -1,42 +1,38 @@
 package com.islandescape.utilities;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.islandescape.controllers.WinConditions;
 import com.islandescape.entities.Item;
 import com.islandescape.entities.Location;
-import com.islandescape.controllers.GameInteractions;
+import com.islandescape.entities.MountainPredator;
+import com.islandescape.utilities.AsciiArt;
+import com.islandescape.controllers.GameMessages;
 import com.islandescape.entities.MagicTotem;
 
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 //Class that parses the JSON and starts the game
 public class LocationParser {
-    private static JsonNode rooms;
-    private static List<String> pickedUpItems;
-    private static String[] hands = new String[1];
-    private static final String ALT_FILE = "src/main/resources/game-info1.json";
-    public static final String underline = "\u001b[4m";
-    public static final String bold = "\033[1m";
-    public static final String unBold = "\033[0m";
-    public static final String RED = "\u001b[31;1m";
     private static Map<String, Location> locationMap;
     private static String currentRoom = "Beach";
     private static Location room;
     private static boolean gameRun = true;
-
-    String[] itemList = new String[1];
     private static List<Item> items = new ArrayList<>();
+    private static Scanner sc = new Scanner(System.in);
+    private static String mute;
 
 
-    public static void Run() throws IOException, InterruptedException {
-        Scanner sc = new Scanner(System.in);
+    public static void Run() throws IOException, InterruptedException, UnsupportedAudioFileException, LineUnavailableException {
+
         ObjectMapper mapper = new ObjectMapper();
         CountdownTimer.startTimer(5);
 
@@ -50,44 +46,53 @@ public class LocationParser {
         Map<String, Location> map = locationMap;
 
         while (gameRun) {
+
             room = map.get(currentRoom);
-
-            System.out.println("Current Location: " + room.getName());
+            SoundEffects.musicPlayer(currentRoom);
+            System.out.println("Remaining Time: " + AsciiArt.MAGENTA + CountdownTimer.getTimeRemaining() + "\n" + AsciiArt.RESET);
+            System.out.println(AsciiArt.CYAN + AsciiArt.underline + AsciiArt.bold + "Current Location: " + room.getName() + AsciiArt.unBold + AsciiArt.RESET);
             System.out.println(room.getDescription());
-            System.out.println("\nRemaining Time: " + GameInteractions.MAGENTA + CountdownTimer.getTimeRemaining() + GameInteractions.RESET);
 
-            if (WinConditions.playerCanBuildABoat(items)) {
+            if(haveSafeAndKey()){
+                useKeyOnSafe();
+            }
+
+            if (WinConditions.playerCanBuildABoat(items))
+            {
+                SoundEffects.boatEscape();
+                System.out.println(AsciiArt.boat);
                 gameRun = false;
                 break;
             }
 
             if (WinConditions.flareWin(items, room)) {
+                SoundEffects.flareGunEscape();
+                System.out.println(AsciiArt.fireworks);
+                TimeUnit.MILLISECONDS.sleep(10000);
                 gameRun = false;
                 break;
             }
 
             if (CountdownTimer.countdownFinished()) {
                 gameRun = false;
-                System.out.println(AsciiArt.MAGENTA + "The ground begins to shake and the Volcano on the island begins to violently erupt." + AsciiArt.RESET);
-                System.out.println(AsciiArt.MAGENTA + "There is no escaping this...Your soul now belongs to the island forever!" + AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA + "\nThe ground begins to shake and the Volcano on the island begins to violently erupt." + AsciiArt.RESET);
+                System.out.println(AsciiArt.MAGENTA + "There is no escaping this...Your soul now belongs to the island forever - YOU LOSE!" + AsciiArt.RESET);
                 System.out.println(AsciiArt.volcano);
                 break;
             }
 
-
             if (room.getItems() != null) {
-                System.out.println(GameInteractions.CYAN + bold + "[Items at this location:]" + unBold + GameInteractions.RESET);
+                System.out.println(AsciiArt.CYAN + "\nItems at this location >>>" + AsciiArt.RESET);
                 for (Item item : room.getItems()) {
-                    System.out.println(item.getName());
+                    System.out.println("=> " + item.getName());
                 }
             } else {
-                System.out.println(GameInteractions.CYAN + bold + "[There are no items at this location]" + unBold + GameInteractions.RESET);
+                System.out.println(AsciiArt.CYAN + "[There are no items at this location]" + AsciiArt.RESET);
             }
 
-            System.out.print("\nWhich direction would you like to go? [Hint: You can type 'help' at any time to view a list of commands] ");
-
+            System.out.print("\nWhich direction would you like to go? [Hint - You can type 'help' at any time to view a list of commands]: ");
             String action = sc.nextLine();
-
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
 
 
             if (action.contains("look") && room.getItems() != null) {
@@ -99,38 +104,39 @@ public class LocationParser {
                 }
             }
 
-
             if (action.contains("pickup")) {
                 String[] item = action.split(" ");
                 pickUp(room, item[1]);
             }
 
-            if (action.toLowerCase().equals("show backpack")) {
-                showBackPack();
+            if (action.toLowerCase().equals("show inventory")) {
+                System.out.println(AsciiArt.CYAN + "Inventory:" + AsciiArt.RESET);
+                showInventory();
             }
 
             if (action.equals("quit")) {
-                System.out.println(RED + "\nAre you sure you want to quit? Yes or No?" + GameInteractions.RESET);
+                System.out.println(AsciiArt.RED + "\nAre you sure you want to quit? Yes or No?" + AsciiArt.RESET);
                 action = sc.nextLine().toLowerCase();
                 if (action.equals("no")) {
                     continue;
                 } else {
                     gameRun = false;
-                    System.out.println(GameInteractions.quitMessage());
+                    System.out.println(GameMessages.quitMessage());
                     continue;
                 }
             }
 
             if (action.contains("help")) {
-                System.out.println(underline + "\nHere are the available commands: " + GameInteractions.RESET);
-                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameInteractions.RESET);
-                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameInteractions.RESET);
-                System.out.println("-Type" + GameInteractions.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" + GameInteractions.RESET);
+                System.out.println(AsciiArt.underline + "Here are the available commands: " + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'go' (direction) to go to another location" + AsciiArt.unBold + " => Example: go north" + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'pickup' (item) to place an item in your inventory" + AsciiArt.unBold + " => Example: pickup flare gun" + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'look' (item) to see a description of an item" + AsciiArt.unBold + " => Example: look flare gun" + AsciiArt.RESET);
+                System.out.println("----- You can also type" + AsciiArt.CYAN + AsciiArt.bold + " 'show inventory'" + AsciiArt.unBold + " to see all the items you have in your possession" + AsciiArt.RESET);
+                System.out.println("-Type" + AsciiArt.CYAN + AsciiArt.bold + " 'quit'" + AsciiArt.unBold + " to end the game at any time" + AsciiArt.RESET);
+                System.out.println("-----------------------------------------------------------------------------------------------------------");
             }
 
-            //TODO: Bug keeps outprinting not a complete response
             if (!action.contains("go")) {
-                //System.out.println("That's not a complete response. Please try again.");
                 System.out.println();
                 continue;
             }
@@ -138,37 +144,52 @@ public class LocationParser {
             String[] word = action.split(" ");
             String direction = word[1];
 
-//            if (!locationMap.containsKey(direction)) {
-//                System.out.println("Invalid location. Please try again.");
-//                currentRoom = currentRoom;
-//                continue;
-//            }
-
-             if (getCurrentRoom(direction, room) == null) {
-                System.out.println(RED + "You can't go in that direction. Try a different way.\n" + GameInteractions.RESET);
+            if(MountainPredator.PredatorAttack(currentRoom, direction, items)){
+                gameRun = true;
+            }
+            if(MountainPredator.PredatorDeath()){
+                gameRun = false;
+                break;
+            }
+            if(MountainPredator.EncounterWithoutFish()){
+                gameRun = true;
+                currentRoom = "Jungle";
+                MountainPredator.setEncounterWithoutFish(false);
+                continue;
             }
 
-            if (currentRoom.equals("Jungle") && direction.equals("west")) {
-                System.out.println("Behold! I am the protector of the village...named the Sacred Totem");
+             if (getCurrentRoom(direction, room) == null) {
+                System.out.println(AsciiArt.RED + "You can't go in that direction. Try a different way.\n" + AsciiArt.RESET);
+                continue;
+            }
+
+
+            else if (currentRoom.equals("Jungle") && direction.equals("west")) {
+                System.out.println(AsciiArt.magicTotem);
+                System.out.println("\nBehold! I am the protector of the village...named the Sacred Totem");
                 if (!MagicTotem.riddle()) {
                     currentRoom = "Jungle";
+                    //MagicTotem.setTotemEncounterPassed(false);
                     continue;
                 } else {
                     currentRoom = getCurrentRoom(direction, room);
                 }
-            }
-            currentRoom = getCurrentRoom(direction, room);
+            }else {
+                currentRoom = getCurrentRoom(direction, room);
+             }
+
         }
     }
 
 
-    private static void pickUp(Location room, String itemName) {
+    private static void pickUp(Location room, String itemName) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Optional<Item> itemToPickUp = room.getItems().stream()
                 .filter(item -> item.getName().toLowerCase().equals(itemName.toLowerCase()))
                 .findFirst();
         if (itemToPickUp.isPresent()) {
             Item item = itemToPickUp.get();
             items.add(item);
+            SoundEffects.itemSounds();
             room.getItems().remove(item);
             System.out.println("You have picked up the following item: " + item.getName());
         } else {
@@ -176,57 +197,10 @@ public class LocationParser {
         }
     }
 
-    private static void showBackPack() {
+    private static void showInventory() {
         items.stream().forEach(item -> System.out.println(item.getName()));
     }
 
-
-//    private static void help(String action) {
-//        if (action.contains("help")) {
-//            System.out.println(underline + "\nHere are the available commands: " + GameInteractions.RESET);
-//            System.out.println("-Type" + GameInteractions.CYAN + bold + " 'go' (direction)" + unBold + " => Example: go north" + GameInteractions.RESET);
-//            System.out.println("-Type" + GameInteractions.CYAN + bold + " 'pickup' (item)" + unBold + " => Example: pickup flare gun" + GameInteractions.RESET);
-//            System.out.println("-Type" + GameInteractions.CYAN + bold + " 'quit'" + unBold + " => Quits Game\n" + GameInteractions.RESET);
-//        }
-//    }
-
-// TODO: Make everything into methods
-//    private static void look(String action) {
-//        if (action.contains("look") && room.getItems() != null) {
-//            for (Item item : room.getItems()) {
-//                if (item.getName().toLowerCase().equals(action.substring(5))) {
-//                    System.out.println(item.getDescription());
-//                }
-//            }
-//        }
-//    }
-//
-//    private static void quit(String action) {
-//        if (action.equals("quit")) {
-//            System.out.println(RED + "\nAre you sure you want to quit? Okay or No?" + GameInteractions.RESET);
-//            Scanner scanner = new Scanner(System.in);
-//            String nextAction = scanner.next();
-//            if (nextAction.equals("Okay")) {
-//                System.out.println(GameInteractions.quitMessage());
-//                gameRun = false;
-//            } else {
-//                gameRun = true;
-//            }
-//        }
-//    }
-
-
-//    private static String getInfo(String action) {
-//        String actionInput = "";
-//        switch (action) {
-//            case "help":
-//                LocationParser.help(action);
-//                break;
-//            default:
-//                System.out.println("wut from getinfo case");
-//        }
-//        return actionInput;
-//    }
 
     private static String getCurrentRoom(String direction, Location location) {
         String result = null;
@@ -247,5 +221,25 @@ public class LocationParser {
                 System.out.println("That is an invalid input from current room case");
         }
         return result;
+    }
+
+    private static boolean haveSafeAndKey(){
+        boolean haveKey = items.stream().anyMatch(item -> item.getName().equals("safe-key"));
+        boolean haveSafe = items.stream().anyMatch(item -> item.getName().equals("locked-safe"));
+        return  haveKey && haveSafe;
+    }
+
+    private static void useKeyOnSafe(){
+        if(haveSafeAndKey()){
+            System.out.print(AsciiArt.CYAN + "\nYou now possess the safe key. Do you want to use it on safe? (yes/no): " + AsciiArt.RESET);
+            String input = sc.nextLine();
+            if(input.toLowerCase().equals("yes")){
+                items.removeIf(item -> item.getName().equals("locked-safe") || item.getName().equals("safe-key"));
+                items.add(new Item("flare-gun","A flare gun that could be used to signal for help! However...there is no flare..."));
+                System.out.println(AsciiArt.MAGENTA + "\nYou now have the flare-gun. Keep going - Head for the mountain top!" + AsciiArt.RESET);
+            }
+        } else {
+            System.out.println("You need both the safe and key to use on the safe.");
+        }
     }
 }
