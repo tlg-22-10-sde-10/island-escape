@@ -32,7 +32,7 @@ public class GameMessages {
         char[] array = introductionText.toCharArray();
         for (char text : array) {
             System.out.print(text);
-            TimeUnit.MILLISECONDS.sleep(0);
+            TimeUnit.MILLISECONDS.sleep(30);
         }
     }
 

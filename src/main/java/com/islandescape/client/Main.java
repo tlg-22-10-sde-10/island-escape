@@ -6,8 +6,6 @@ import java.util.Scanner;
 import com.islandescape.utilities.AsciiArt;
 import com.islandescape.utilities.LocationParser;
 import com.islandescape.controllers.GameMessages;
-//import com.islandescape.utilities.SoundEffects;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
